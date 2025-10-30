@@ -1,5 +1,6 @@
 """
 Pydantic data models for SHIELD Security Analysis API
+Compatible with Python 3.8+ and Pydantic v2
 
 These models define the request/response schemas for the API endpoints
 and provide data validation and serialization.
@@ -8,9 +9,32 @@ and provide data validation and serialization.
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional, Dict, Any, Union
-from pydantic import BaseModel, Field, validator
 import base64
 import re
+import sys
+
+# Handle Pydantic imports for different versions
+try:
+    from pydantic import BaseModel, Field
+    # Try Pydantic v2 validator
+    try:
+        from pydantic import field_validator as validator
+        PYDANTIC_V2 = True
+    except ImportError:
+        # Fall back to Pydantic v1 validator
+        from pydantic import validator
+        PYDANTIC_V2 = False
+except ImportError:
+    raise ImportError("Please install pydantic: pip install pydantic>=2.0.0")
+
+# Python version compatibility
+if sys.version_info < (3, 8):
+    from typing_extensions import Literal
+else:
+    try:
+        from typing import Literal
+    except ImportError:
+        from typing_extensions import Literal
 
 
 class InputType(str, Enum):
@@ -62,11 +86,33 @@ class AnalysisRequest(BaseModel):
     ip_address: Optional[str] = Field(None, description="Source IP address")
     session_id: Optional[str] = Field(None, description="Session identifier")
     
-    @validator('content')
-    def validate_content(cls, v, values):
-        """Validate content based on input type."""
-        input_type = values.get('input_type')
-        
+    # Use different validator syntax based on Pydantic version
+    if PYDANTIC_V2:
+        @validator('content')
+        @classmethod
+        def validate_content(cls, v, info=None):
+            """Validate content based on input type."""
+            # Get values from info context for Pydantic v2
+            if info and hasattr(info, 'data'):
+                input_type = info.data.get('input_type')
+            else:
+                # Fallback - validation will be less strict
+                return v
+            
+            return cls._validate_content_logic(v, input_type)
+    else:
+        @validator('content')
+        def validate_content(cls, v, values):
+            """Validate content based on input type."""
+            input_type = values.get('input_type')
+            return cls._validate_content_logic(v, input_type)
+    
+    @classmethod
+    def _validate_content_logic(cls, v, input_type):
+        """Common validation logic for content field."""
+        if not input_type:
+            return v
+            
         if input_type == InputType.TEXT:
             if len(v.strip()) == 0:
                 raise ValueError("Text content cannot be empty")

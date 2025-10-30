@@ -1,22 +1,22 @@
 # SHIELD Backend Dependencies
-# Production-ready FastAPI backend for security analysis
+# Compatible with Python 3.8+ for maximum compatibility
 
 # Core Framework
-fastapi>=0.100.0
-uvicorn[standard]>=0.20.0
+fastapi>=0.95.0,<1.0.0
+uvicorn[standard]>=0.20.0,<1.0.0
 
 # Data Validation & Serialization  
-pydantic>=2.0.0
-pydantic-settings>=2.0.0
-
-# Async Support
-asyncio-throttle>=1.0.2
+pydantic>=2.0.0,<3.0.0
+pydantic-settings>=2.0.0,<3.0.0
 
 # HTTP & CORS
-python-multipart>=0.0.6
+python-multipart>=0.0.5
 
-# Logging & Monitoring
-structlog>=23.0.0
+# Logging & Monitoring (optional - fallback to standard logging if not available)
+structlog>=20.0.0; python_version >= "3.8"
+
+# Development and compatibility packages
+typing-extensions>=4.0.0; python_version < "3.10"
 
 # Security (optional for now - can be added later)
 # cryptography>=42.0.0

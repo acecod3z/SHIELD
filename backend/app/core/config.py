@@ -1,10 +1,27 @@
 """
 Core configuration for SHIELD Backend Application
+Compatible with Python 3.8+
 """
 
 import os
+import sys
 from typing import List
-from pydantic_settings import BaseSettings
+
+# Handle different Python versions and pydantic versions
+try:
+    from pydantic_settings import BaseSettings
+except ImportError:
+    try:
+        from pydantic import BaseSettings
+    except ImportError:
+        raise ImportError("Please install pydantic and pydantic-settings: pip install pydantic>=2.0.0 pydantic-settings>=2.0.0")
+
+# Python version compatibility check
+PYTHON_VERSION = sys.version_info
+if PYTHON_VERSION < (3, 8):
+    raise RuntimeError("SHIELD Backend requires Python 3.8 or higher. Current version: {}.{}.{}".format(
+        PYTHON_VERSION.major, PYTHON_VERSION.minor, PYTHON_VERSION.micro
+    ))
 
 
 class Settings(BaseSettings):

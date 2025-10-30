@@ -1,5 +1,6 @@
 """
 Logging configuration for SHIELD Backend
+Compatible with Python 3.8+ and handles optional dependencies gracefully
 """
 
 import logging
@@ -7,11 +8,19 @@ import logging.config
 import os
 from pathlib import Path
 
+# Try to import structlog, fall back to standard logging if not available
+try:
+    import structlog
+    HAS_STRUCTLOG = True
+except ImportError:
+    HAS_STRUCTLOG = False
+    print("Warning: structlog not installed. Using standard logging.")
+
 from app.core.config import settings
 
 
 def setup_logging():
-    """Setup logging configuration."""
+    """Setup logging configuration with fallback options."""
     
     # Create logs directory if it doesn't exist
     log_dir = Path("logs")
@@ -74,6 +83,26 @@ def setup_logging():
     }
     
     logging.config.dictConfig(LOGGING_CONFIG)
+    
+    # Configure structlog if available
+    if HAS_STRUCTLOG:
+        structlog.configure(
+            processors=[
+                structlog.stdlib.filter_by_level,
+                structlog.stdlib.add_logger_name,
+                structlog.stdlib.add_log_level,
+                structlog.stdlib.PositionalArgumentsFormatter(),
+                structlog.processors.TimeStamper(fmt="iso"),
+                structlog.processors.StackInfoRenderer(),
+                structlog.processors.format_exc_info,
+                structlog.processors.UnicodeDecoder(),
+                structlog.processors.JSONRenderer()
+            ],
+            context_class=dict,
+            logger_factory=structlog.stdlib.LoggerFactory(),
+            wrapper_class=structlog.stdlib.BoundLogger,
+            cache_logger_on_first_use=True,
+        )
 
 
 # Create loggers for different components
