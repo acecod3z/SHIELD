@@ -8,14 +8,13 @@ Complete machine learning pipeline for SQL injection detection
 - Perfect for hackathon demonstrations
 
 Features:
-✅ 154 advanced features with intelligent weighting
-✅ Multiple ML models (SVM, Random Forest, Ensemble)
-✅ Real-time prediction capabilities
-✅ Interactive testing mode
-✅ Comprehensive evaluation metrics
-✅ Ready-to-deploy code
+ 154 advanced features with intelligent weighting
+ Multiple ML models (SVM, Random Forest, Ensemble)
+ Real-time prediction capabilities
+ Interactive testing mode
+ Comprehensive evaluation metrics
+ Ready-to-deploy code
 
-Author: AI Assistant
 Date: October 30, 2025
 Version: Hackathon Edition v1.0
 """
@@ -30,13 +29,13 @@ import math
 import numpy as np
 
 # ============================================================================
-# ADVANCED FEATURE ENGINEERING (154 FEATURES)
+# ADVANCED FEATURE ENGINEERING 
 # ============================================================================
 
 def enhanced_feature_extraction(texts):
     """
     Extract 154 advanced features for SQL injection detection.
-    This is the core innovation that achieves 87%+ accuracy!
+    This is the core innovation that achieves 87% accuracy
     """
     print(f"🔧 Extracting 154 advanced features from {len(texts)} queries...")
     

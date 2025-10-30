@@ -520,17 +520,40 @@
         
         // Save analysis data and redirect to dashboard
         function redirectToDashboard(response) {
-            // Save to localStorage for dashboard
-            localStorage.setItem('latestThreatAnalysis', JSON.stringify(response));
-            localStorage.setItem('threatAnalysisTimestamp', new Date().toISOString());
-            
-            // Hide loading
-            hideLoading();
-            
-            // Redirect to dashboard after a brief delay
-            setTimeout(() => {
-                window.location.href = 'dashboard.html';
-            }, 1000);
+            // Check if input is malicious (any threat detected)
+            if (response.result && response.result.is_malicious === true) {
+                // Save honeypot session data
+                const honeypotData = {
+                    original_input: document.getElementById('textInput').value,
+                    threat_analysis: response,
+                    timestamp: new Date().toISOString(),
+                    session_id: 'HNY-' + Math.random().toString(36).substr(2, 9).toUpperCase()
+                };
+                localStorage.setItem('honeypotSession', JSON.stringify(honeypotData));
+                
+                // Open honeypot in NEW TAB (silently, no warning)
+                window.open('honeypot.html', '_blank');
+                
+                // Still show dashboard in CURRENT TAB so you can monitor
+                localStorage.setItem('latestThreatAnalysis', JSON.stringify(response));
+                localStorage.setItem('threatAnalysisTimestamp', new Date().toISOString());
+                
+                hideLoading();
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            } else {
+                // Normal redirect to dashboard for safe inputs
+                localStorage.setItem('latestThreatAnalysis', JSON.stringify(response));
+                localStorage.setItem('threatAnalysisTimestamp', new Date().toISOString());
+                
+                hideLoading();
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            }
         }
         
         // Show error with redirect option

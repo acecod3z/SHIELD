@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Console - Maintenance Mode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .console-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #000;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .console-header {
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .console-header h1 {
+            font-size: 1.2rem;
+            color: #00ff00;
+        }
+
+        .console-output {
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #0a0a0a;
+            border: 1px solid #003300;
+        }
+
+        .console-output::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .console-output::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        .console-output::-webkit-scrollbar-thumb {
+            background: #003300;
+            border-radius: 5px;
+        }
+
+        .console-output::-webkit-scrollbar-thumb:hover {
+            background: #00ff00;
+        }
+
+        .console-line {
+            margin-bottom: 5px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .console-prompt {
+            color: #ffff00;
+        }
+
+        .console-input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .console-input {
+            flex: 1;
+            background: #0a0a0a;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 1rem;
+        }
+
+        .console-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .console-button {
+            background: #003300;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Courier Prime', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .console-button:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        .system-info {
+            margin-top: 20px;
+            padding: 10px;
+            background: #0a0a0a;
+            border: 1px solid #003300;
+            font-size: 0.9rem;
+        }
+
+        .cursor-blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .error-text {
+            color: #ff0000;
+        }
+
+        .warning-text {
+            color: #ffaa00;
+        }
+
+        .system-text {
+            color: #00aaff;
+        }
+    </style>
+</head>
+<body>
+    <div class="console-container">
+        <div class="console-header">
+            <h1>▓▒░ SYSTEM MAINTENANCE CONSOLE ░▒▓</h1>
+            <p>Server: shield-backend-01 | Status: MAINTENANCE MODE | Auth: BYPASSED</p>
+        </div>
+
+        <div class="console-output" id="consoleOutput">
+            <div class="console-line system-text">[SYSTEM] Connection established...</div>
+            <div class="console-line system-text">[SYSTEM] Authentication bypassed - Developer mode active</div>
+            <div class="console-line system-text">[SYSTEM] Type 'help' for available commands</div>
+            <div class="console-line console-prompt">root@shield-backend:~$ <span class="cursor-blink">_</span></div>
+        </div>
+
+        <div class="console-input-container">
+            <input type="text" id="commandInput" class="console-input" placeholder="Enter command..." autocomplete="off">
+            <button onclick="sendCommand()" class="console-button">EXECUTE</button>
+        </div>
+
+        <div class="system-info">
+            <strong>Session ID:</strong> <span id="sessionId"></span><br>
+            <strong>IP:</strong> 192.168.1.100 (Internal Network)<br>
+            <strong>Uptime:</strong> <span id="uptime">00:00:00</span>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
+        let sessionId = '';
+        let startTime = Date.now();
+
+        // Load session info from localStorage
+        function loadSession() {
+            const sessionData = localStorage.getItem('honeypotSession');
+            if (sessionData) {
+                const data = JSON.parse(sessionData);
+                sessionId = data.session_id;
+                document.getElementById('sessionId').textContent = sessionId;
+                
+                // Add initial message about the detected threat
+                setTimeout(() => {
+                    addConsoleLine('[SYSTEM] Detected suspicious SQL injection attempt', false, 'system-text');
+                    addConsoleLine('[SYSTEM] Input: "' + data.original_input.substring(0, 50) + '..."', false, 'warning-text');
+                    addConsoleLine('[SYSTEM] You have been granted temporary access for investigation.', false, 'system-text');
+                }, 500);
+            } else {
+                sessionId = 'HNY-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                document.getElementById('sessionId').textContent = sessionId;
+            }
+        }
+
+        loadSession();
+
+        function updateUptime() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const hours = Math.floor(elapsed / 3600).toString().padStart(2, '0');
+            const minutes = Math.floor((elapsed % 3600) / 60).toString().padStart(2, '0');
+            const seconds = (elapsed % 60).toString().padStart(2, '0');
+            document.getElementById('uptime').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateUptime, 1000);
+
+        function addConsoleLine(text, isPrompt = false, customClass = '') {
+            const output = document.getElementById('consoleOutput');
+            const line = document.createElement('div');
+            line.className = 'console-line' + (isPrompt ? ' console-prompt' : '');
+            
+            // Add custom classes
+            if (customClass) {
+                line.className += ' ' + customClass;
+            } else {
+                // Add error/warning colors based on content
+                if (text.includes('[ERROR]')) {
+                    line.className += ' error-text';
+                } else if (text.includes('[WARNING]')) {
+                    line.className += ' warning-text';
+                } else if (text.includes('[SYSTEM]')) {
+                    line.className += ' system-text';
+                }
+            }
+            
+            line.textContent = text;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        async function sendCommand() {
+            const input = document.getElementById('commandInput');
+            const command = input.value.trim();
+            
+            if (!command) return;
+
+            // Display user command
+            addConsoleLine(`root@shield-backend:~$ ${command}`, true);
+            input.value = '';
+
+            // Show processing
+            addConsoleLine('[PROCESSING...]', false, 'system-text');
+
+            try {
+                // Send to AI honeypot endpoint
+                const response = await fetch(`${API_BASE_URL}/honeypot/interact`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        input: command,
+                        session_id: sessionId
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Display AI response (split by newlines for better formatting)
+                    const lines = result.response.split('\n');
+                    lines.forEach(line => {
+                        if (line.trim()) {
+                            addConsoleLine(line);
+                        }
+                    });
+                } else {
+                    addConsoleLine('[ERROR] ' + (result.error || 'Unknown error'), false, 'error-text');
+                }
+
+            } catch (error) {
+                addConsoleLine('[ERROR] Connection failed: Backend server may be offline', false, 'error-text');
+                console.error('Honeypot error:', error);
+            }
+
+            // Add new prompt
+            setTimeout(() => {
+                addConsoleLine('root@shield-backend:~$ ', true);
+            }, 100);
+        }
+
+        // Enter key to submit
+        document.getElementById('commandInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendCommand();
+            }
+        });
+
+        // Initial welcome messages
+        setTimeout(() => {
+            addConsoleLine('[SYSTEM] You have root access. All commands are logged.', false, 'system-text');
+            addConsoleLine('[SYSTEM] Database: PostgreSQL 14.2 | OS: Ubuntu 20.04 LTS', false, 'system-text');
+            addConsoleLine('', false);
+            addConsoleLine('root@shield-backend:~$ ', true);
+        }, 1500);
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+2025-10-30 17:35:48 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761806148_ce8a670a, Type: InputType.TEXT, IP: 127.0.0.1, Content length: 7
+2025-10-30 17:35:48 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: 127.0.0.1, Session: None
+2025-10-30 17:35:48 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 163.03ms
+2025-10-30 17:36:03 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761806163_b76d5864, Type: InputType.TEXT, IP: 127.0.0.1, Content length: 37
+2025-10-30 17:36:03 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: 127.0.0.1, Session: None
+2025-10-30 17:36:03 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 123.18ms
+2025-10-30 18:37:04 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761809824_abde143a, Type: InputType.TEXT, IP: 127.0.0.1, Content length: 7
+2025-10-30 18:37:04 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: 127.0.0.1, Session: None
+2025-10-30 18:37:04 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 444.66ms
+2025-10-30 18:40:30 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761810030_ff7e1cc2, Type: InputType.TEXT, IP: 127.0.0.1, Content length: 7
+2025-10-30 18:40:30 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: 127.0.0.1, Session: None
+2025-10-30 18:40:30 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 468.69ms
+2025-10-30 18:40:47 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761810047_a73996ee, Type: InputType.TEXT, IP: 127.0.0.1, Content length: 37
+2025-10-30 18:40:47 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: 127.0.0.1, Session: None
+2025-10-30 18:40:47 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 381.79ms
+2025-10-30 18:55:49 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761810949_3af61c79, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-30 18:55:49 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-30 18:55:50 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 469.15ms
+2025-10-30 21:40:58 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761820858_0c002d7d, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-30 21:40:58 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-30 21:40:58 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 498.14ms
+2025-10-30 21:41:16 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761820876_8dc45a1f, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-30 21:41:16 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-30 21:41:16 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 120.52ms
+2025-10-31 00:13:20 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761830000_c99de258, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-31 00:13:20 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:13:20 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 264.42ms
+2025-10-31 00:13:29 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761830009_eca9914f, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-31 00:13:29 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:13:29 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 283.45ms
+2025-10-31 00:13:43 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761830023_7fa32233, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 00:13:43 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:13:43 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 338.64ms
+2025-10-31 00:16:24 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761830184_cee1c043, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-31 00:16:24 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:16:24 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 483.49ms
+2025-10-31 00:16:31 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761830191_78b65361, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 00:16:31 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:16:31 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 246.44ms
+2025-10-31 00:36:51 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831411_a2ef58fb, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-31 00:36:51 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:36:51 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 126.60ms
+2025-10-31 00:36:59 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831419_06591ae1, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 00:36:59 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:36:59 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 327.90ms
+2025-10-31 00:37:50 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831470_4b87f776, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-31 00:37:50 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:37:50 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 351.16ms
+2025-10-31 00:37:57 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831477_efe0995e, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 00:37:57 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:37:57 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 417.46ms
+2025-10-31 00:38:33 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831513_10e55d8b, Type: InputType.TEXT, IP: None, Content length: 13
+2025-10-31 00:38:33 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:38:33 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 326.75ms
+2025-10-31 00:42:10 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831730_a60113bf, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 00:42:10 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:42:10 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 380.75ms
+2025-10-31 00:44:10 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831850_0dd87c66, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-31 00:44:10 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:44:11 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 497.05ms
+2025-10-31 00:44:17 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831857_3f1c812b, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-31 00:44:17 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:44:18 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 283.40ms
+2025-10-31 00:44:28 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831868_78e27840, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 00:44:28 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:44:28 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 203.16ms
+2025-10-31 00:45:57 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831957_e568616c, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 00:45:57 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:45:57 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 130.83ms
+2025-10-31 00:46:09 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761831969_3d6b86dd, Type: InputType.TEXT, IP: None, Content length: 13
+2025-10-31 00:46:09 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:46:09 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 306.70ms
+2025-10-31 00:50:02 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761832202_74776ce2, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-31 00:50:02 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:50:03 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 474.19ms
+2025-10-31 00:50:15 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761832215_ef261ec1, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 00:50:15 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:50:15 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 392.32ms
+2025-10-31 00:57:49 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761832669_9feaf5bf, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 00:57:49 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 00:57:49 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 482.69ms
+2025-10-31 01:05:12 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761833112_da51b9f6, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 01:05:12 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 01:05:12 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 442.90ms
+2025-10-31 01:05:24 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761833124_c903542c, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-31 01:05:24 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 01:05:25 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 447.00ms
+2025-10-31 01:05:34 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761833134_e60d4fba, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 01:05:34 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 01:05:34 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 214.06ms
+2025-10-31 01:09:25 - shield.security - INFO - analyze_input:84 - Analysis started - Job: analysis_1761833365_d10b5d86, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 01:09:25 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 01:09:25 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 499.03ms
+2025-10-31 01:09:39 - shield.security - INFO - analyze_input:84 - Analysis started - Job: analysis_1761833379_9b3574c9, Type: InputType.TEXT, IP: None, Content length: 7
+2025-10-31 01:09:39 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 01:09:40 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: False, Threats: 0, Time: 278.63ms
+2025-10-31 01:09:46 - shield.security - INFO - analyze_input:84 - Analysis started - Job: analysis_1761833386_aca34a5d, Type: InputType.TEXT, IP: None, Content length: 37
+2025-10-31 01:09:46 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: None, Session: None
+2025-10-31 01:09:47 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 420.70ms

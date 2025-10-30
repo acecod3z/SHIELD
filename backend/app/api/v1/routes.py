@@ -20,6 +20,7 @@ from app.models.schemas import (
 )
 from app.services.analysis import analysis_service
 from app.core.config import settings
+from app.api.v1.honeypot import router as honeypot_router
 
 
 logger = logging.getLogger(__name__)
@@ -27,6 +28,9 @@ security_logger = logging.getLogger("shield.security")
 
 # Create the main API router that will be imported by main.py
 api_router = APIRouter(tags=["Security Analysis"])
+
+# Include honeypot router
+api_router.include_router(honeypot_router, prefix="/honeypot", tags=["Honeypot"])
 
 
 def generate_job_id() -> str:
