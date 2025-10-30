@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIELD - Input Analyzer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="url"]:focus,
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .clear-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .clear-btn:hover {
+            background-color: #da190b;
+        }
+
+        .result-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+        }
+
+        .result-section h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .result-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: white;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .result-item strong {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SHIELD - Input Analyzer</h1>
+        
+        <form id="inputForm">
+            <!-- Text Input Field -->
+            <div class="input-group">
+                <label for="textInput">Text Input:</label>
+                <input 
+                    type="text" 
+                    id="textInput" 
+                    name="textInput" 
+                    placeholder="Enter your text here..."
+                >
+            </div>
+
+            <!-- URL Input Field -->
+            <div class="input-group">
+                <label for="urlInput">URL Input:</label>
+                <input 
+                    type="url" 
+                    id="urlInput" 
+                    name="urlInput" 
+                    placeholder="https://example.com"
+                >
+            </div>
+
+            <!-- Image/File Input Field -->
+            <div class="input-group">
+                <label for="imageInput">Image Input:</label>
+                <input 
+                    type="file" 
+                    id="imageInput" 
+                    name="imageInput" 
+                    accept="image/*"
+                >
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="button" class="clear-btn" onclick="clearForm()">Clear</button>
+            </div>
+        </form>
+
+        <!-- Result Section -->
+        <div class="result-section" id="resultSection">
+            <h2>Results:</h2>
+            <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('inputForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const textInput = document.getElementById('textInput').value;
+            const urlInput = document.getElementById('urlInput').value;
+            const imageInput = document.getElementById('imageInput').files[0];
+            
+            let resultHTML = '';
+            
+            if (textInput) {
+                resultHTML += `<div class="result-item"><strong>Text Input:</strong> ${textInput}</div>`;
+            }
+            
+            if (urlInput) {
+                resultHTML += `<div class="result-item"><strong>URL Input:</strong> ${urlInput}</div>`;
+            }
+            
+            if (imageInput) {
+                resultHTML += `<div class="result-item"><strong>Image:</strong> ${imageInput.name} (${(imageInput.size / 1024).toFixed(2)} KB)</div>`;
+            }
+            
+            if (resultHTML) {
+                document.getElementById('resultContent').innerHTML = resultHTML;
+                document.getElementById('resultSection').classList.add('show');
+            }
+        });
+
+        // Clear form function
+        function clearForm() {
+            document.getElementById('inputForm').reset();
+            document.getElementById('resultSection').classList.remove('show');
+            document.getElementById('resultContent').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
