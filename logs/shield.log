@@ -163,3 +163,24 @@
 2025-10-31 01:09:47 - app.services.analysis - INFO - _analyze_text_stub:170 - SQL injection detected - Risk Score: 15, Confidence: 0.30, Indicators: 4
 2025-10-31 01:09:47 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: True, Threats: 1
 2025-10-31 01:09:47 - app.api.v1.routes - INFO - analyze_input:138 - Analysis completed - Job: analysis_1761833386_aca34a5d, Malicious: True, Threats: 1
+2025-10-31 02:01:24 - app.api.v1.honeypot - INFO - honeypot_interaction:28 - [HONEYPOT] Session: HNY-YBEMF8W57 | Input: ls -la
+2025-10-31 02:01:24 - app.api.v1.honeypot - INFO - honeypot_interaction:40 - [HONEYPOT] Session: HNY-YBEMF8W57 | Response: drwxr-xr-x 2 root root 4096 Oct 15 12:34 config
+drwxr-xr-x 3 www-data www-data 4096 Oct 20 08:22 log...
+2025-10-31 02:02:24 - app.api.v1.honeypot - INFO - honeypot_interaction:28 - [HONEYPOT] Session: HNY-YBEMF8W57 | Input: cat secrets.txt
+2025-10-31 02:02:24 - app.api.v1.honeypot - INFO - honeypot_interaction:40 - [HONEYPOT] Session: HNY-YBEMF8W57 | Response: [SECRETS FILE]
+DB_PASSWORD=admin123_temp
+API_KEY=sk-test-abc123def456
+JWT_SECRET=supersecret_change_...
+2025-10-31 02:39:00 - app.api.v1.routes - INFO - analyze_input:83 - Analysis request analysis_1761838740_1a353d33 - Type: InputType.TEXT
+2025-10-31 02:39:01 - app.services.sql_injection_detector - INFO - predict:333 - Fallback prediction: MALICIOUS, Risk: 15, Confidence: 0.30
+2025-10-31 02:39:01 - app.services.analysis - INFO - _analyze_text_stub:170 - SQL injection detected - Risk Score: 15, Confidence: 0.30, Indicators: 4
+2025-10-31 02:39:01 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: True, Threats: 1
+2025-10-31 02:39:01 - app.api.v1.routes - INFO - analyze_input:138 - Analysis completed - Job: analysis_1761838740_1a353d33, Malicious: True, Threats: 1
+2025-10-31 02:39:06 - app.api.v1.honeypot - INFO - honeypot_interaction:28 - [HONEYPOT] Session: HNY-SL5RAF54K | Input: ls -la
+2025-10-31 02:39:06 - app.api.v1.honeypot - INFO - honeypot_interaction:40 - [HONEYPOT] Session: HNY-SL5RAF54K | Response: drwxr-xr-x 2 root root 4096 Oct 15 12:34 config
+drwxr-xr-x 3 www-data www-data 4096 Oct 20 08:22 log...
+2025-10-31 02:39:20 - app.api.v1.routes - INFO - analyze_input:83 - Analysis request analysis_1761838760_da6c7733 - Type: InputType.TEXT
+2025-10-31 02:39:20 - app.services.sql_injection_detector - INFO - predict:333 - Fallback prediction: SAFE, Risk: 0, Confidence: 1.00
+2025-10-31 02:39:20 - app.services.analysis - INFO - _analyze_text_stub:176 - Text analysis: No malicious patterns detected
+2025-10-31 02:39:20 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: False, Threats: 0
+2025-10-31 02:39:20 - app.api.v1.routes - INFO - analyze_input:138 - Analysis completed - Job: analysis_1761838760_da6c7733, Malicious: False, Threats: 0
