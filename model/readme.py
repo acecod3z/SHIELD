@@ -110,15 +110,18 @@ def evaluate_model(y_test, y_pred, save_path='confusion_matrix.png'):
 
 def main():
     try:
-        # Define file paths and try different possible locations
+        # Define file paths and try different possible locations using absolute paths
+        script_dir = os.path.dirname(os.path.abspath(__file__))
         possible_paths = [
-            'Modified_SQL_Dataset.csv',  # Try current directory first
-            os.path.join('..', 'dataset', 'Modified_SQL_Dataset.csv')  # Then try dataset directory
+            os.path.join(script_dir, 'Modified_SQL_Dataset.csv'),  # Try model directory first
+            os.path.join(script_dir, '..', 'dataset', 'Modified_SQL_Dataset.csv')  # Then try dataset directory
         ]
         
         # Find the first path that exists
         dataset_path = None
         for path in possible_paths:
+            path = os.path.abspath(path)  # Ensure absolute path
+            print(f"Checking path: {path}")  # Debug print
             if os.path.exists(path):
                 dataset_path = path
                 break
