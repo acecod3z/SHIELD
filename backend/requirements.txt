@@ -1,0 +1,49 @@
+# SHIELD Backend Dependencies
+# Production-ready FastAPI backend for security analysis
+
+# Core Framework
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+
+# Data Validation & Serialization  
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# Async Support
+asyncio-throttle>=1.0.2
+
+# HTTP & CORS
+python-multipart>=0.0.6
+
+# Logging & Monitoring
+structlog>=23.0.0
+
+# Security (optional for now - can be added later)
+# cryptography>=42.0.0
+# python-jose[cryptography]>=3.3.0
+# passlib[bcrypt]>=1.7.4
+
+# Future Dependencies (commented out until needed)
+# Phase 1: AI/ML Integration
+# torch==2.1.0
+# torchvision==0.16.0
+# transformers==4.35.0
+# scikit-learn==1.3.0
+# numpy==1.24.3
+# pandas==2.0.3
+
+# Phase 2: Honeypot & Advanced Features  
+# redis==5.0.1
+# celery==5.3.4
+# websockets==12.0
+
+# Development Dependencies (optional)
+# pytest==7.4.3
+# pytest-asyncio==0.21.1
+# black==23.11.0
+# flake8==6.1.0
+# mypy==1.7.0
+
+# Documentation
+# mkdocs==1.5.3
+# mkdocs-material==9.4.8
