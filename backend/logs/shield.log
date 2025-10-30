@@ -153,3 +153,43 @@
 2025-10-30 17:14:06 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
 2025-10-30 17:14:07 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
 2025-10-30 17:14:07 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:32:32 - app.api.v1.routes - INFO - analyze_input:79 - Analysis request analysis_1761805952_1e4f25a1 - Type: InputType.TEXT
+2025-10-30 17:32:32 - app.services.sql_injection_detector - INFO - predict:154 - SQL analysis: MALICIOUS, Risk: 15, Confidence: 0.30
+2025-10-30 17:32:32 - app.services.analysis - INFO - _analyze_text_stub:170 - SQL injection detected - Risk Score: 15, Confidence: 0.30, Indicators: 4
+2025-10-30 17:32:32 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: True, Threats: 1
+2025-10-30 17:32:32 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761805952_1e4f25a1, Malicious: True, Threats: 1
+2025-10-30 17:32:39 - app.api.v1.routes - INFO - analyze_input:79 - Analysis request analysis_1761805959_05907076 - Type: InputType.TEXT
+2025-10-30 17:32:39 - app.services.sql_injection_detector - INFO - predict:154 - SQL analysis: SAFE, Risk: 6, Confidence: 0.88
+2025-10-30 17:32:39 - app.services.analysis - INFO - _analyze_text_stub:176 - Text analysis: No malicious patterns detected
+2025-10-30 17:32:39 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: False, Threats: 0
+2025-10-30 17:32:39 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761805959_05907076, Malicious: False, Threats: 0
+2025-10-30 17:33:05 - app.api.v1.routes - INFO - analyze_input:79 - Analysis request analysis_1761805985_89aab369 - Type: InputType.TEXT
+2025-10-30 17:33:05 - app.services.sql_injection_detector - INFO - predict:154 - SQL analysis: MALICIOUS, Risk: 35, Confidence: 0.70
+2025-10-30 17:33:05 - app.services.analysis - INFO - _analyze_text_stub:170 - SQL injection detected - Risk Score: 35, Confidence: 0.70, Indicators: 6
+2025-10-30 17:33:05 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: True, Threats: 1
+2025-10-30 17:33:05 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761805985_89aab369, Malicious: True, Threats: 1
+2025-10-30 17:39:32 - app.api.v1.routes - INFO - analyze_input:79 - Analysis request analysis_1761806372_1498abed - Type: InputType.TEXT
+2025-10-30 17:39:32 - app.services.sql_injection_detector - INFO - predict:154 - SQL analysis: SAFE, Risk: 0, Confidence: 1.00
+2025-10-30 17:39:32 - app.services.analysis - INFO - _analyze_text_stub:176 - Text analysis: No malicious patterns detected
+2025-10-30 17:39:32 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: False, Threats: 0
+2025-10-30 17:39:32 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761806372_1498abed, Malicious: False, Threats: 0
+2025-10-30 17:39:54 - app.api.v1.routes - INFO - analyze_input:79 - Analysis request analysis_1761806394_8ac583e2 - Type: InputType.TEXT
+2025-10-30 17:39:54 - app.services.sql_injection_detector - INFO - predict:154 - SQL analysis: MALICIOUS, Risk: 15, Confidence: 0.30
+2025-10-30 17:39:54 - app.services.analysis - INFO - _analyze_text_stub:170 - SQL injection detected - Risk Score: 15, Confidence: 0.30, Indicators: 4
+2025-10-30 17:39:54 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: True, Threats: 1
+2025-10-30 17:39:54 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761806394_8ac583e2, Malicious: True, Threats: 1
+2025-10-30 17:42:03 - app.api.v1.routes - INFO - analyze_input:79 - Analysis request analysis_1761806523_853c19fa - Type: InputType.TEXT
+2025-10-30 17:42:03 - app.services.sql_injection_detector - INFO - predict:154 - SQL analysis: SAFE, Risk: 6, Confidence: 0.88
+2025-10-30 17:42:03 - app.services.analysis - INFO - _analyze_text_stub:176 - Text analysis: No malicious patterns detected
+2025-10-30 17:42:03 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: False, Threats: 0
+2025-10-30 17:42:03 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761806523_853c19fa, Malicious: False, Threats: 0
+2025-10-30 18:03:52 - app.api.v1.routes - INFO - analyze_input:79 - Analysis request analysis_1761807832_27f98729 - Type: InputType.TEXT
+2025-10-30 18:03:52 - app.services.sql_injection_detector - INFO - predict:154 - SQL analysis: SAFE, Risk: 0, Confidence: 1.00
+2025-10-30 18:03:52 - app.services.analysis - INFO - _analyze_text_stub:176 - Text analysis: No malicious patterns detected
+2025-10-30 18:03:52 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: False, Threats: 0
+2025-10-30 18:03:52 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761807832_27f98729, Malicious: False, Threats: 0
+2025-10-30 18:03:58 - app.api.v1.routes - INFO - analyze_input:79 - Analysis request analysis_1761807838_b10574fc - Type: InputType.TEXT
+2025-10-30 18:03:58 - app.services.sql_injection_detector - INFO - predict:154 - SQL analysis: MALICIOUS, Risk: 15, Confidence: 0.30
+2025-10-30 18:03:58 - app.services.analysis - INFO - _analyze_text_stub:170 - SQL injection detected - Risk Score: 15, Confidence: 0.30, Indicators: 4
+2025-10-30 18:03:58 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: True, Threats: 1
+2025-10-30 18:03:58 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761807838_b10574fc, Malicious: True, Threats: 1

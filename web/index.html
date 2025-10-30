@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHIELD - Input Analyzer</title>
+    <title>SHIELD Defense Systems - Advanced Threat Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-blue: #0d1b2a;
+            --secondary-blue: #1b263b;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff6b35;
+            --text-light: #e0e1dd;
+            --text-dark: #0d1b2a;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,329 +25,576 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 800px;
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: -2;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Floating particles effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.5; }
+        }
+
+        /* Header */
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
             margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
         }
 
-        h1 {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .hero-section {
             text-align: center;
-            margin-bottom: 30px;
-            color: #333;
+            margin-bottom: 3rem;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Analysis panel */
+        .analysis-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .analysis-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
         }
 
         .input-group {
-            margin-bottom: 25px;
+            margin-bottom: 2rem;
         }
 
-        label {
+        .input-label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        input[type="text"],
-        input[type="url"],
-        input[type="file"] {
+        .input-field {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
-        input[type="text"]:focus,
-        input[type="url"]:focus,
-        input[type="file"]:focus {
+        .input-field:focus {
             outline: none;
-            border-color: #4CAF50;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
         }
 
+        .input-field::placeholder {
+            color: rgba(224, 225, 221, 0.6);
+        }
+
+        /* Buttons */
         .button-group {
             display: flex;
-            gap: 10px;
-            margin-top: 30px;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
-        button {
+        .btn {
             flex: 1;
-            padding: 12px 24px;
-            font-size: 16px;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .submit-btn {
-            background-color: #4CAF50;
-            color: white;
+        .btn-primary {
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-green));
+            color: var(--primary-blue);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
         }
 
-        .submit-btn:hover {
-            background-color: #45a049;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
         }
 
-        .clear-btn {
-            background-color: #f44336;
-            color: white;
+        .btn-secondary {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--accent-orange);
+            border: 2px solid var(--accent-orange);
         }
 
-        .clear-btn:hover {
-            background-color: #da190b;
+        .btn-secondary:hover {
+            background: var(--accent-orange);
+            color: var(--primary-blue);
+            transform: translateY(-2px);
         }
 
+        /* Results section */
         .result-section {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 4px;
+            margin-top: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
             display: none;
+            position: relative;
+            overflow: hidden;
         }
 
         .result-section.show {
             display: block;
+            animation: slideIn 0.5s ease-out;
         }
 
-        .result-section h2 {
-            margin-bottom: 15px;
-            color: #333;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .result-item {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: white;
-            border-left: 4px solid #4CAF50;
-        }
-
-        .result-item strong {
-            color: #555;
-        }
-
-        /* Enhanced result display styles */
         .result-header {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #4CAF50;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: 'Orbitron', monospace;
         }
 
-        .result-header h3 {
-            margin: 0;
-            color: #333;
+        .result-title {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
         }
 
         .job-info {
-            font-size: 12px;
-            color: #777;
-            margin-top: 5px;
+            font-size: 0.9rem;
+            color: rgba(224, 225, 221, 0.7);
         }
 
+        /* Threat status */
         .threat-status {
-            padding: 15px;
-            border-radius: 6px;
-            margin: 15px 0;
-            font-weight: bold;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            position: relative;
         }
 
         .threat-status.benign {
-            background-color: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.1));
+            border: 2px solid var(--accent-green);
+            color: var(--accent-green);
         }
 
         .threat-status.malicious {
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
+            background: linear-gradient(45deg, rgba(255, 107, 53, 0.3), rgba(255, 107, 53, 0.1));
+            border: 2px solid var(--accent-orange);
+            color: var(--accent-orange);
+            animation: warningPulse 2s infinite;
+        }
+
+        @keyframes warningPulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 107, 53, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.6); }
         }
 
         .confidence, .threat-level {
-            font-size: 14px;
-            margin-top: 5px;
-            font-weight: normal;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            opacity: 0.8;
         }
 
+        /* Threats section */
         .threats-section {
-            margin: 20px 0;
+            margin: 2rem 0;
         }
 
-        .threats-section h4 {
-            color: #333;
-            margin-bottom: 10px;
+        .threats-title {
+            color: var(--accent-cyan);
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
         }
 
         .threat-item {
-            margin: 10px 0;
-            padding: 12px;
-            border-radius: 4px;
-            border-left: 4px solid #f44336;
-        }
-
-        .threat-item.low {
-            background-color: #fff3cd;
-            border-color: #ffc107;
-        }
-
-        .threat-item.medium {
-            background-color: #ffeeba;
-            border-color: #fd7e14;
-        }
-
-        .threat-item.high {
-            background-color: #f8d7da;
-            border-color: #dc3545;
-        }
-
-        .threat-item.critical {
-            background-color: #f5c6cb;
-            border-color: #a71d2a;
+            margin: 1rem 0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-orange);
+            background: rgba(255, 107, 53, 0.1);
+            backdrop-filter: blur(5px);
         }
 
         .threat-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 5px;
+            margin-bottom: 0.8rem;
+        }
+
+        .threat-type {
+            font-weight: 600;
+            color: var(--accent-orange);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .threat-confidence {
+            background: rgba(255, 107, 53, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
         }
 
         .threat-description {
-            font-size: 14px;
-            margin: 5px 0;
+            color: var(--text-light);
+            line-height: 1.5;
+            margin-bottom: 1rem;
         }
 
         .mitigation {
-            font-size: 13px;
+            padding: 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-cyan);
             font-style: italic;
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid #ddd;
+            color: var(--accent-cyan);
         }
 
+        /* Metadata section */
         .metadata-section {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
         }
 
-        .metadata-section h4 {
-            margin: 0 0 10px 0;
-            color: #333;
+        .metadata-title {
+            color: var(--accent-cyan);
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 1rem;
         }
 
         .metadata-item {
-            font-size: 13px;
-            color: #666;
-            margin: 3px 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
         }
 
-        .honeypot-notice {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #fff3cd;
-            border: 1px solid #ffc107;
-            border-radius: 4px;
-            color: #856404;
-        }
-
-        .honeypot-notice h4 {
-            margin: 0 0 10px 0;
-        }
-
-        .error {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-            color: #721c24;
+        .metadata-item:last-child {
+            border-bottom: none;
         }
 
         /* Loading animation */
+        .loading-container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(0, 212, 255, 0.3);
+            border-top: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        /* Connection status indicator */
-        .connection-status {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
+        .loading-text {
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
-        .connection-status.connected {
-            background-color: #d4edda;
-            color: #155724;
+        /* Error styles */
+        .error {
+            background: linear-gradient(45deg, rgba(255, 107, 53, 0.3), rgba(255, 107, 53, 0.1));
+            border: 2px solid var(--accent-orange);
+            color: var(--accent-orange);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
         }
 
-        .connection-status.disconnected {
-            background-color: #f8d7da;
-            color: #721c24;
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .analysis-panel {
+                padding: 1.5rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Floating particles background -->
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 0.5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 1.5s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 2.5s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 3.5s;"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">S</div>
+                <div class="logo-text">SHIELD</div>
+            </div>
+            <div class="nav-status">
+                <div class="status-indicator"></div>
+                <span>Defense Systems Online</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
     <div class="container">
-        <h1>SHIELD - Input Analyzer</h1>
-        
-        <form id="inputForm">
-            <!-- Text Input Field -->
-            <div class="input-group">
-                <label for="textInput">Text Input:</label>
-                <input 
-                    type="text" 
-                    id="textInput" 
-                    name="textInput" 
-                    placeholder="Enter your text here..."
-                >
-            </div>
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1 class="hero-title">THREAT ANALYSIS SYSTEM</h1>
+            <p class="hero-subtitle">Advanced AI-Powered Security Intelligence Platform</p>
+        </div>
 
-            <!-- URL Input Field -->
-            <div class="input-group">
-                <label for="urlInput">URL Input:</label>
-                <input 
-                    type="url" 
-                    id="urlInput" 
-                    name="urlInput" 
-                    placeholder="https://example.com"
-                >
-            </div>
+        <!-- Analysis Panel -->
+        <div class="analysis-panel">
+            <h2 class="panel-title">Security Analysis Console</h2>
+            
+            <form id="inputForm">
+                <!-- Text Input Field -->
+                <div class="input-group">
+                    <label for="textInput" class="input-label">Input Data Stream</label>
+                    <input 
+                        type="text" 
+                        id="textInput" 
+                        name="textInput" 
+                        class="input-field"
+                        placeholder="Enter query, command, or suspicious text for analysis..."
+                    >
+                </div>
 
-            <!-- Image/File Input Field -->
-            <div class="input-group">
-                <label for="imageInput">Image Input:</label>
-                <input 
-                    type="file" 
-                    id="imageInput" 
-                    name="imageInput" 
-                    accept="image/*"
-                >
-            </div>
-
-            <!-- Buttons -->
-            <div class="button-group">
-                <button type="submit" class="submit-btn">Submit</button>
-                <button type="button" class="clear-btn" onclick="clearForm()">Clear</button>
-            </div>
-        </form>
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">Initialize Scan</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear Buffer</button>
+                </div>
+            </form>
+        </div>
 
         <!-- Result Section -->
         <div class="result-section" id="resultSection">
-            <h2>Results:</h2>
             <div id="resultContent"></div>
         </div>
     </div>
@@ -343,29 +603,14 @@
         // Backend API configuration
         const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
         
-        // Utility function to convert file to base64
-        function fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => {
-                    // Remove the data:image/...;base64, prefix
-                    const base64 = reader.result.split(',')[1];
-                    resolve(base64);
-                };
-                reader.onerror = error => reject(error);
-            });
-        }
-        
         // Show loading state
         function showLoading() {
             const resultContent = document.getElementById('resultContent');
             resultContent.innerHTML = `
-                <div class="result-item" style="text-align: center;">
-                    <div style="margin: 20px 0;">
-                        <div style="display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #4CAF50; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                        <p style="margin-top: 10px;">Analyzing for security threats...</p>
-                    </div>
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Analyzing threat patterns...</div>
+                    <div style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.7;">AI Defense Systems Processing</div>
                 </div>
             `;
             document.getElementById('resultSection').classList.add('show');
@@ -383,36 +628,37 @@
             
             let resultHTML = `
                 <div class="result-header">
-                    <h3>Analysis Results</h3>
-                    <div class="job-info">Job ID: ${response.job_id}</div>
+                    <h3 class="result-title">Threat Analysis Report</h3>
+                    <div class="job-info">Analysis ID: ${response.job_id} | System: SHIELD-AI</div>
                 </div>
             `;
             
             // Threat status
             const statusClass = result.is_malicious ? 'malicious' : 'benign';
-            const statusText = result.is_malicious ? 'MALICIOUS' : 'BENIGN';
+            const statusText = result.is_malicious ? '🚨 THREAT DETECTED' : '✅ SECURE';
+            const statusIcon = result.is_malicious ? '⚠️' : '🛡️';
             
             resultHTML += `
                 <div class="threat-status ${statusClass}">
-                    <strong>Status:</strong> ${statusText}
-                    <div class="confidence">Confidence: ${(result.confidence_score * 100).toFixed(1)}%</div>
-                    <div class="threat-level">Threat Level: ${result.threat_level.toUpperCase()}</div>
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">${statusIcon} ${statusText}</div>
+                    <div class="confidence">Confidence Level: ${(result.confidence_score * 100).toFixed(1)}%</div>
+                    <div class="threat-level">Classification: ${result.threat_level.toUpperCase()}</div>
                 </div>
             `;
             
             // Detected threats
             if (result.detected_threats && result.detected_threats.length > 0) {
-                resultHTML += '<div class="threats-section"><h4>Detected Threats:</h4>';
+                resultHTML += '<div class="threats-section"><h4 class="threats-title">🎯 Detected Attack Vectors:</h4>';
                 
                 result.detected_threats.forEach(threat => {
                     resultHTML += `
-                        <div class="threat-item ${threat.severity}">
+                        <div class="threat-item">
                             <div class="threat-header">
-                                <strong>${threat.attack_type.replace(/_/g, ' ').toUpperCase()}</strong>
-                                <span class="confidence">${(threat.confidence * 100).toFixed(1)}%</span>
+                                <div class="threat-type">${threat.attack_type.replace(/_/g, ' ').toUpperCase()}</div>
+                                <div class="threat-confidence">${(threat.confidence * 100).toFixed(1)}%</div>
                             </div>
-                            <div class="threat-description">${threat.description}</div>
-                            ${threat.mitigation ? `<div class="mitigation"><strong>Mitigation:</strong> ${threat.mitigation}</div>` : ''}
+                            <div class="threat-description">🔍 ${threat.description}</div>
+                            ${threat.mitigation ? `<div class="mitigation">🛠️ <strong>Recommended Action:</strong> ${threat.mitigation}</div>` : ''}
                         </div>
                     `;
                 });
@@ -424,10 +670,23 @@
             if (result.analysis_metadata) {
                 resultHTML += `
                     <div class="metadata-section">
-                        <h4>Analysis Details:</h4>
-                        <div class="metadata-item">Processing Time: ${result.processing_time_ms?.toFixed(2) || 'N/A'} ms</div>
-                        <div class="metadata-item">Model Version: ${result.ai_model_version || 'Development Stub'}</div>
-                        <div class="metadata-item">Timestamp: ${new Date(response.timestamp).toLocaleString()}</div>
+                        <h4 class="metadata-title">📊 System Diagnostics</h4>
+                        <div class="metadata-item">
+                            <span>Processing Time:</span>
+                            <span>${result.processing_time_ms?.toFixed(2) || 'N/A'} ms</span>
+                        </div>
+                        <div class="metadata-item">
+                            <span>AI Model Version:</span>
+                            <span>${result.ai_model_version || 'SHIELD-Defense-v1.0'}</span>
+                        </div>
+                        <div class="metadata-item">
+                            <span>Analysis Timestamp:</span>
+                            <span>${new Date(response.timestamp).toLocaleString()}</span>
+                        </div>
+                        <div class="metadata-item">
+                            <span>Security Level:</span>
+                            <span>Military Grade Encryption</span>
+                        </div>
                     </div>
                 `;
             }
@@ -450,7 +709,8 @@
         function showError(message) {
             const resultContent = document.getElementById('resultContent');
             resultContent.innerHTML = `
-                <div class="result-item error">
+                <div class="error">
+                    <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">⚠️ System Alert</div>
                     <strong>Error:</strong> ${message}
                 </div>
             `;
@@ -465,38 +725,20 @@
             
             try {
                 const textInput = document.getElementById('textInput').value;
-                const urlInput = document.getElementById('urlInput').value;
-                const imageInput = document.getElementById('imageInput').files[0];
                 
-                let analysisRequest = null;
-                
-                // Determine input type and content
-                if (textInput.trim()) {
-                    analysisRequest = {
-                        input_type: 'text',
-                        content: textInput,
-                        ip_address: '127.0.0.1', // Demo IP
-                        user_agent: navigator.userAgent
-                    };
-                } else if (urlInput.trim()) {
-                    analysisRequest = {
-                        input_type: 'url',
-                        content: urlInput,
-                        ip_address: '127.0.0.1',
-                        user_agent: navigator.userAgent
-                    };
-                } else if (imageInput) {
-                    const base64Content = await fileToBase64(imageInput);
-                    analysisRequest = {
-                        input_type: 'image',
-                        content: base64Content,
-                        ip_address: '127.0.0.1',
-                        user_agent: navigator.userAgent
-                    };
-                } else {
-                    showError('Please provide at least one input (text, URL, or image)');
+                // Check if text input is provided
+                if (!textInput.trim()) {
+                    showError('Please enter data for threat analysis');
                     return;
                 }
+                
+                // Create analysis request for text input
+                const analysisRequest = {
+                    input_type: 'text',
+                    content: textInput,
+                    ip_address: '127.0.0.1', // Demo IP
+                    user_agent: navigator.userAgent
+                };
                 
                 // Send analysis request
                 const response = await fetch(`${API_BASE_URL}/analyze`, {
@@ -518,7 +760,7 @@
             } catch (error) {
                 console.error('Analysis failed:', error);
                 if (error.message.includes('Failed to fetch')) {
-                    showError('Cannot connect to backend API. Please ensure the backend server is running on http://127.0.0.1:8000');
+                    showError('Cannot establish connection to SHIELD Defense Network. Please ensure the backend server is operational.');
                 } else {
                     showError(error.message);
                 }
