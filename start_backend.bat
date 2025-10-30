@@ -3,10 +3,10 @@ echo 🛡️ SHIELD Backend Startup Script
 echo.
 
 REM Check if Python is installed
-python --version >nul 2>&1
+py -3.13 --version >nul 2>&1
 if errorlevel 1 (
-    echo ❌ Python is not installed or not in PATH
-    echo Please install Python 3.8+ from https://python.org
+    echo ❌ Python 3.13 is not installed or not in PATH
+    echo Please install Python 3.13+ from https://python.org
     pause
     exit /b 1
 )
@@ -19,7 +19,7 @@ cd /d "%~dp0backend"
 REM Check if virtual environment exists
 if not exist "venv" (
     echo 📦 Creating virtual environment...
-    python -m venv venv
+    py -3.13 -m venv venv
     if errorlevel 1 (
         echo ❌ Failed to create virtual environment
         pause
