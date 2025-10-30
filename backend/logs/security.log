@@ -1,3 +1,6 @@
 2025-10-30 11:00:54 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761782454_3424df9e, Type: InputType.TEXT, IP: 127.0.0.1, Content length: 7
 2025-10-30 11:00:54 - shield.security - INFO - analyze_input:45 - Analysis request received - Type: InputType.TEXT, IP: 127.0.0.1, Session: None
 2025-10-30 11:00:54 - shield.security - INFO - analyze_input:85 - Analysis completed - Malicious: False, Threats: 0, Time: 118.20ms
+2025-10-30 17:12:15 - shield.security - INFO - analyze_input:80 - Analysis started - Job: analysis_1761804735_256e371c, Type: InputType.TEXT, IP: 127.0.0.1, Content length: 37
+2025-10-30 17:12:15 - shield.security - INFO - analyze_input:46 - Analysis request received - Type: InputType.TEXT, IP: 127.0.0.1, Session: None
+2025-10-30 17:12:15 - shield.security - INFO - analyze_input:86 - Analysis completed - Malicious: True, Threats: 1, Time: 148.85ms

@@ -17,6 +17,7 @@ from app.models.schemas import (
     InputType, AttackType, ThreatLevel
 )
 from app.core.config import settings
+from app.services.sql_injection_detector import sql_injection_detector
 
 
 logger = logging.getLogger(__name__)
@@ -133,23 +134,49 @@ class AnalysisService:
         return is_malicious, detected_threats
     
     def _analyze_text_stub(self, content: str) -> List[ThreatDetection]:
-        """Stub for text-based threat analysis."""
+        """
+        Text-based threat analysis using the SQL injection detector.
+        Integrates the SimpleSQLInjectionDetector from model directory.
+        """
         threats = []
+        
+        # Use the SQL injection detector for analysis
+        detection_result = sql_injection_detector.predict(content)
+        
+        if detection_result['is_malicious']:
+            # Map risk score to severity
+            risk_score = detection_result['risk_score']
+            if risk_score >= 50:
+                severity = ThreatLevel.CRITICAL
+            elif risk_score >= 30:
+                severity = ThreatLevel.HIGH
+            elif risk_score >= 15:
+                severity = ThreatLevel.MEDIUM
+            else:
+                severity = ThreatLevel.LOW
+            
+            # Create detailed description from indicators
+            indicators_text = "; ".join(detection_result['indicators'][:3])  # Top 3 indicators
+            description = f"SQL injection detected: {indicators_text}"
+            
+            threats.append(ThreatDetection(
+                attack_type=AttackType.SQL_INJECTION,
+                confidence=detection_result['confidence'],
+                severity=severity,
+                description=description,
+                mitigation="Use parameterized queries and input validation. Avoid dynamic SQL construction with user input."
+            ))
+            
+            logger.info(
+                f"SQL injection detected - Risk Score: {risk_score}, "
+                f"Confidence: {detection_result['confidence']:.2f}, "
+                f"Indicators: {len(detection_result['indicators'])}"
+            )
+        else:
+            logger.info(f"Text analysis: No malicious patterns detected")
+        
+        # Additional XSS detection (keeping existing functionality)
         content_lower = content.lower()
-        
-        # Simple pattern matching for demonstration
-        # In production, this would be replaced with sophisticated AI models
-        
-        if any(keyword in content_lower for keyword in ['select', 'union', 'drop', 'insert', 'delete']):
-            if any(keyword in content_lower for keyword in ['or', 'and', "'", '"', ';']):
-                threats.append(ThreatDetection(
-                    attack_type=AttackType.SQL_INJECTION,
-                    confidence=random.uniform(0.7, 0.95),
-                    severity=ThreatLevel.HIGH,
-                    description="Potential SQL injection pattern detected",
-                    mitigation="Use parameterized queries and input validation"
-                ))
-        
         if any(keyword in content_lower for keyword in ['<script', 'javascript:', 'onerror', 'onload']):
             threats.append(ThreatDetection(
                 attack_type=AttackType.XSS,
@@ -157,15 +184,6 @@ class AnalysisService:
                 severity=ThreatLevel.MEDIUM,
                 description="Potential XSS attack pattern detected",
                 mitigation="Sanitize and encode user input before rendering"
-            ))
-        
-        if any(keyword in content_lower for keyword in ['cmd', 'powershell', 'bash', '&&', '||', ';']):
-            threats.append(ThreatDetection(
-                attack_type=AttackType.COMMAND_INJECTION,
-                confidence=random.uniform(0.5, 0.8),
-                severity=ThreatLevel.HIGH,
-                description="Potential command injection pattern detected",
-                mitigation="Avoid executing user input as system commands"
             ))
         
         return threats

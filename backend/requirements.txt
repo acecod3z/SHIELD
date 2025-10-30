@@ -12,6 +12,9 @@ pydantic-settings>=2.0.0,<3.0.0
 # HTTP & CORS
 python-multipart>=0.0.5
 
+# Machine Learning (for SQL injection detection)
+numpy>=1.21.0,<2.0.0
+
 # Logging & Monitoring (optional - fallback to standard logging if not available)
 structlog>=20.0.0; python_version >= "3.8"
 

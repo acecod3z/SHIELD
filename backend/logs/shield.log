@@ -1,3 +1,72 @@
 2025-10-30 11:00:54 - app.api.v1.routes - INFO - analyze_input:79 - Analysis request analysis_1761782454_3424df9e - Type: InputType.TEXT
 2025-10-30 11:00:54 - app.services.analysis - INFO - ai_analysis_stub:131 - AI Analysis Stub - Input: InputType.TEXT, Malicious: False, Threats: 0
 2025-10-30 11:00:54 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761782454_3424df9e, Malicious: False, Threats: 0
+2025-10-30 17:12:15 - app.api.v1.routes - INFO - analyze_input:79 - Analysis request analysis_1761804735_256e371c - Type: InputType.TEXT
+2025-10-30 17:12:15 - app.services.sql_injection_detector - INFO - predict:154 - SQL analysis: MALICIOUS, Risk: 15, Confidence: 0.30
+2025-10-30 17:12:15 - app.services.analysis - INFO - _analyze_text_stub:170 - SQL injection detected - Risk Score: 15, Confidence: 0.30, Indicators: 4
+2025-10-30 17:12:15 - app.services.analysis - INFO - ai_analysis_stub:132 - AI Analysis Stub - Input: InputType.TEXT, Malicious: True, Threats: 1
+2025-10-30 17:12:15 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761804735_256e371c, Malicious: True, Threats: 1
+2025-10-30 17:12:21 - watchfiles.main - INFO - _log_changes:308 - 2 changes detected
+2025-10-30 17:12:22 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:22 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:23 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:23 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:23 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:24 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:24 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:25 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:25 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:25 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:26 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:26 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:27 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:27 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:27 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:28 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:28 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:29 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:29 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:29 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:30 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:30 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:31 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:31 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:31 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:32 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:32 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:33 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:33 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:33 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:34 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:34 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:35 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:35 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:36 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:36 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:36 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:37 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:37 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:37 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:38 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:38 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:39 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:39 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:40 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:40 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:40 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:41 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:41 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:42 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:42 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:42 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:43 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:43 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:44 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:44 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:44 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:45 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:45 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:46 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:46 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:46 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 17:12:47 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
