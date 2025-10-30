@@ -26,32 +26,32 @@
 
         body {
             font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            background: #000000;
             color: var(--text-light);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Animated background grid */
-        body::before {
-            content: '';
+        /* Letter Glitch Background */
+        #glitchCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
             z-index: -2;
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+        .outer-vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,1) 100%);
+            z-index: -1;
         }
 
         /* Header */
@@ -142,6 +142,12 @@
         .dashboard-header {
             text-align: center;
             margin-bottom: 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 2rem 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
         .dashboard-title {
@@ -153,12 +159,15 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
         }
 
         .dashboard-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            opacity: 0.8;
+            font-size: 1.5rem;
+            color: #ffffff;
+            opacity: 1;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
         }
 
         /* Dashboard grid */
@@ -324,6 +333,22 @@
             padding: 1.5rem;
             max-height: 400px;
             overflow-y: auto;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        .activity-log::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .activity-log::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .activity-log::-webkit-scrollbar-thumb {
+            background: var(--accent-cyan);
+            border-radius: 10px;
         }
 
         .log-entry {
@@ -333,16 +358,78 @@
             border-radius: 8px;
             border-left: 3px solid var(--accent-cyan);
             font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.7);
+            animation: fadeInScale 0.3s ease forwards;
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .log-entry:nth-child(1) { animation-delay: 0.05s; }
+        .log-entry:nth-child(2) { animation-delay: 0.1s; }
+        .log-entry:nth-child(3) { animation-delay: 0.15s; }
+        .log-entry:nth-child(4) { animation-delay: 0.2s; }
+        .log-entry:nth-child(5) { animation-delay: 0.25s; }
+        .log-entry:nth-child(6) { animation-delay: 0.3s; }
+        .log-entry:nth-child(7) { animation-delay: 0.35s; }
+        .log-entry:nth-child(8) { animation-delay: 0.4s; }
+
+        .log-entry:hover,
+        .log-entry.selected {
+            background: rgba(0, 212, 255, 0.15);
+            transform: scale(1.02);
+            border-left-color: var(--accent-green);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .log-entry.selected {
+            border-left-width: 4px;
         }
 
         .log-time {
             color: var(--accent-cyan);
             font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .log-entry:hover .log-time,
+        .log-entry.selected .log-time {
+            color: var(--accent-green);
         }
 
         .log-action {
             color: var(--text-light);
             margin-top: 0.2rem;
+        }
+
+        .activity-gradient-top,
+        .activity-gradient-bottom {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 50px;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .activity-gradient-top {
+            top: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+            transition: opacity 0.2s ease;
+        }
+
+        .activity-gradient-bottom {
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            transition: opacity 0.1s ease;
         }
 
         /* Responsive design */
@@ -374,6 +461,10 @@
     </style>
 </head>
 <body>
+    <!-- Letter Glitch Background -->
+    <canvas id="glitchCanvas"></canvas>
+    <div class="outer-vignette"></div>
+
     <!-- Header -->
     <header class="header">
         <div class="header-content">
@@ -460,54 +551,178 @@
         <div class="dashboard-grid">
             <div class="dashboard-card">
                 <h3 class="card-title">📈 Recent Activity</h3>
-                <div class="activity-log">
-                    <div class="log-entry">
+                <div class="activity-log" id="recentActivity">
+                    <div class="activity-gradient-top"></div>
+                    <div class="log-entry" data-index="0">
                         <div class="log-time">13:07:46</div>
                         <div class="log-action">Threat scan completed - SECURE</div>
                     </div>
-                    <div class="log-entry">
+                    <div class="log-entry" data-index="1">
                         <div class="log-time">13:05:22</div>
                         <div class="log-action">SQL injection attempt detected and blocked</div>
                     </div>
-                    <div class="log-entry">
+                    <div class="log-entry" data-index="2">
                         <div class="log-time">12:58:11</div>
                         <div class="log-action">System diagnostics completed</div>
                     </div>
-                    <div class="log-entry">
+                    <div class="log-entry" data-index="3">
                         <div class="log-time">12:45:33</div>
                         <div class="log-action">Database integrity check passed</div>
                     </div>
-                    <div class="log-entry">
+                    <div class="log-entry" data-index="4">
                         <div class="log-time">12:30:15</div>
                         <div class="log-action">AI model updated to v1.0.0</div>
                     </div>
+                    <div class="log-entry" data-index="5">
+                        <div class="log-time">12:15:42</div>
+                        <div class="log-action">Firewall rules updated</div>
+                    </div>
+                    <div class="log-entry" data-index="6">
+                        <div class="log-time">12:00:00</div>
+                        <div class="log-action">Daily security report generated</div>
+                    </div>
+                    <div class="activity-gradient-bottom"></div>
                 </div>
             </div>
             <div class="dashboard-card">
                 <h3 class="card-title">🎯 Threat Categories</h3>
-                <div class="activity-log">
-                    <div class="log-entry">
+                <div class="activity-log" id="threatCategories">
+                    <div class="activity-gradient-top"></div>
+                    <div class="log-entry" data-index="0">
                         <div class="log-time">SQL Injection</div>
                         <div class="log-action">67 attempts blocked</div>
                     </div>
-                    <div class="log-entry">
+                    <div class="log-entry" data-index="1">
                         <div class="log-time">XSS Attacks</div>
                         <div class="log-action">34 attempts blocked</div>
                     </div>
-                    <div class="log-entry">
+                    <div class="log-entry" data-index="2">
                         <div class="log-time">Command Injection</div>
                         <div class="log-action">23 attempts blocked</div>
                     </div>
-                    <div class="log-entry">
+                    <div class="log-entry" data-index="3">
                         <div class="log-time">CSRF Attacks</div>
                         <div class="log-action">19 attempts blocked</div>
                     </div>
+                    <div class="log-entry" data-index="4">
+                        <div class="log-time">Path Traversal</div>
+                        <div class="log-action">12 attempts blocked</div>
+                    </div>
+                    <div class="log-entry" data-index="5">
+                        <div class="log-time">SSRF</div>
+                        <div class="log-action">8 attempts blocked</div>
+                    </div>
+                    <div class="activity-gradient-bottom"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Animated List Functionality
+        function initAnimatedList(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const entries = container.querySelectorAll('.log-entry');
+            const topGradient = container.querySelector('.activity-gradient-top');
+            const bottomGradient = container.querySelector('.activity-gradient-bottom');
+            let selectedIndex = -1;
+
+            // Handle scroll gradients
+            const handleScroll = () => {
+                const { scrollTop, scrollHeight, clientHeight } = container;
+                if (topGradient) {
+                    topGradient.style.opacity = Math.min(scrollTop / 50, 1);
+                }
+                if (bottomGradient) {
+                    const bottomDistance = scrollHeight - (scrollTop + clientHeight);
+                    // Hide instantly when at bottom (within 5px threshold)
+                    if (bottomDistance <= 5) {
+                        bottomGradient.style.opacity = 0;
+                    } else if (scrollHeight <= clientHeight) {
+                        bottomGradient.style.opacity = 0;
+                    } else {
+                        bottomGradient.style.opacity = Math.min(bottomDistance / 50, 1);
+                    }
+                }
+            };
+
+            container.addEventListener('scroll', handleScroll);
+            handleScroll(); // Initial check
+
+            // Mouse hover selection
+            entries.forEach((entry, index) => {
+                entry.addEventListener('mouseenter', () => {
+                    entries.forEach(e => e.classList.remove('selected'));
+                    entry.classList.add('selected');
+                    selectedIndex = index;
+                });
+
+                entry.addEventListener('click', () => {
+                    console.log(`Selected: ${entry.querySelector('.log-time').textContent}`);
+                });
+            });
+
+            // Keyboard navigation
+            const handleKeyDown = (e) => {
+                if (!container.contains(document.activeElement) && selectedIndex === -1) return;
+
+                if (e.key === 'ArrowDown' || (e.key === 'Tab' && !e.shiftKey)) {
+                    e.preventDefault();
+                    selectedIndex = Math.min(selectedIndex + 1, entries.length - 1);
+                    updateSelection();
+                } else if (e.key === 'ArrowUp' || (e.key === 'Tab' && e.shiftKey)) {
+                    e.preventDefault();
+                    selectedIndex = Math.max(selectedIndex - 1, 0);
+                    updateSelection();
+                } else if (e.key === 'Enter' && selectedIndex >= 0) {
+                    e.preventDefault();
+                    entries[selectedIndex].click();
+                }
+            };
+
+            const updateSelection = () => {
+                entries.forEach((entry, index) => {
+                    entry.classList.toggle('selected', index === selectedIndex);
+                });
+
+                if (selectedIndex >= 0 && entries[selectedIndex]) {
+                    const selectedEntry = entries[selectedIndex];
+                    const containerRect = container.getBoundingClientRect();
+                    const entryRect = selectedEntry.getBoundingClientRect();
+                    
+                    const extraMargin = 50;
+                    if (entryRect.top < containerRect.top + extraMargin) {
+                        container.scrollTo({
+                            top: selectedEntry.offsetTop - extraMargin,
+                            behavior: 'smooth'
+                        });
+                    } else if (entryRect.bottom > containerRect.bottom - extraMargin) {
+                        container.scrollTo({
+                            top: selectedEntry.offsetTop - container.clientHeight + selectedEntry.offsetHeight + extraMargin,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            };
+
+            window.addEventListener('keydown', handleKeyDown);
+
+            // Make container focusable
+            container.setAttribute('tabindex', '0');
+            container.addEventListener('focus', () => {
+                if (selectedIndex === -1) {
+                    selectedIndex = 0;
+                    updateSelection();
+                }
+            });
+        }
+
+        // Initialize both animated lists
+        initAnimatedList('recentActivity');
+        initAnimatedList('threatCategories');
+
         // Auto-refresh dashboard every 30 seconds
         setInterval(() => {
             console.log('Dashboard refreshing...');
@@ -611,6 +826,152 @@
                     }, 30);
                 }
             });
+        });
+
+        // Letter Glitch Effect
+        const canvas = document.getElementById('glitchCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        const glitchColors = ['#2b4539', '#61dca3', '#61b3dc'];
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$&*()-_+=/[]{};:<>.,0123456789';
+        const lettersAndSymbols = Array.from(characters);
+        
+        const fontSize = 16;
+        const charWidth = 10;
+        const charHeight = 20;
+        const glitchSpeed = 50;
+        
+        let letters = [];
+        let grid = { columns: 0, rows: 0 };
+        let lastGlitchTime = Date.now();
+        let animationId;
+        
+        const getRandomChar = () => lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)];
+        const getRandomColor = () => glitchColors[Math.floor(Math.random() * glitchColors.length)];
+        
+        const hexToRgb = hex => {
+            const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+            hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        };
+        
+        const interpolateColor = (start, end, factor) => {
+            const result = {
+                r: Math.round(start.r + (end.r - start.r) * factor),
+                g: Math.round(start.g + (end.g - start.g) * factor),
+                b: Math.round(start.b + (end.b - start.b) * factor)
+            };
+            return `rgb(${result.r}, ${result.g}, ${result.b})`;
+        };
+        
+        const calculateGrid = (width, height) => {
+            const columns = Math.ceil(width / charWidth);
+            const rows = Math.ceil(height / charHeight);
+            return { columns, rows };
+        };
+        
+        const initializeLetters = (columns, rows) => {
+            grid = { columns, rows };
+            const totalLetters = columns * rows;
+            letters = Array.from({ length: totalLetters }, () => ({
+                char: getRandomChar(),
+                color: getRandomColor(),
+                targetColor: getRandomColor(),
+                colorProgress: 1
+            }));
+        };
+        
+        const resizeCanvas = () => {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            canvas.style.width = `${window.innerWidth}px`;
+            canvas.style.height = `${window.innerHeight}px`;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            
+            const { columns, rows } = calculateGrid(window.innerWidth, window.innerHeight);
+            initializeLetters(columns, rows);
+            drawLetters();
+        };
+        
+        const drawLetters = () => {
+            if (!ctx || letters.length === 0) return;
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            ctx.font = `${fontSize}px monospace`;
+            ctx.textBaseline = 'top';
+            
+            letters.forEach((letter, index) => {
+                const x = (index % grid.columns) * charWidth;
+                const y = Math.floor(index / grid.columns) * charHeight;
+                ctx.fillStyle = letter.color;
+                ctx.fillText(letter.char, x, y);
+            });
+        };
+        
+        const updateLetters = () => {
+            if (!letters || letters.length === 0) return;
+            const updateCount = Math.max(1, Math.floor(letters.length * 0.05));
+            
+            for (let i = 0; i < updateCount; i++) {
+                const index = Math.floor(Math.random() * letters.length);
+                if (!letters[index]) continue;
+                
+                letters[index].char = getRandomChar();
+                letters[index].targetColor = getRandomColor();
+                letters[index].colorProgress = 0;
+            }
+        };
+        
+        const handleSmoothTransitions = () => {
+            let needsRedraw = false;
+            letters.forEach(letter => {
+                if (letter.colorProgress < 1) {
+                    letter.colorProgress += 0.05;
+                    if (letter.colorProgress > 1) letter.colorProgress = 1;
+                    
+                    const startRgb = hexToRgb(letter.color);
+                    const endRgb = hexToRgb(letter.targetColor);
+                    if (startRgb && endRgb) {
+                        letter.color = interpolateColor(startRgb, endRgb, letter.colorProgress);
+                        needsRedraw = true;
+                    }
+                }
+            });
+            
+            if (needsRedraw) {
+                drawLetters();
+            }
+        };
+        
+        const animate = () => {
+            const now = Date.now();
+            if (now - lastGlitchTime >= glitchSpeed) {
+                updateLetters();
+                drawLetters();
+                lastGlitchTime = now;
+            }
+            
+            handleSmoothTransitions();
+            animationId = requestAnimationFrame(animate);
+        };
+        
+        // Initialize glitch effect
+        resizeCanvas();
+        animate();
+        
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                cancelAnimationFrame(animationId);
+                resizeCanvas();
+                animate();
+            }, 100);
         });
     </script>
 </body>
