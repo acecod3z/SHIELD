@@ -43,6 +43,8 @@
             z-index: -2;
         }
 
+
+
         /* Floating particles effect */
         .particles {
             position: fixed;
@@ -126,139 +128,31 @@
             font-size: 0.9rem;
         }
 
-        /* Gooey Navigation Styles */
         .nav-menu {
             display: flex;
             gap: 2rem;
             align-items: center;
-            position: relative;
-        }
-
-        .gooey-nav-container {
-            position: relative;
-            display: flex;
-            gap: 0;
-        }
-
-        .gooey-nav-container nav ul {
-            list-style: none;
-            display: flex;
-            gap: 0;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .gooey-nav-container nav ul li {
-            margin: 0;
         }
 
         .nav-link {
             color: var(--text-light);
             text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 0.9rem;
-            display: block;
-            position: relative;
-            z-index: 2;
-            transition: color 0.3s ease;
-        }
-
-        .gooey-nav-container nav ul li.active .nav-link {
-            color: var(--primary-blue);
+            letter-spacing: 1px;
         }
 
         .nav-link:hover {
+            background: var(--glass-bg);
             color: var(--accent-cyan);
         }
 
-        /* Gooey Effect Elements */
-        .effect {
-            position: absolute;
-            pointer-events: none;
-            z-index: 1;
-            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .effect.filter {
+        .nav-link.active {
             background: var(--accent-cyan);
-            border-radius: 8px;
-            filter: url(#gooey);
-        }
-
-        .effect.text {
             color: var(--primary-blue);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .effect.text.active {
-            opacity: 1;
-        }
-
-        /* Particles */
-        .particle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            pointer-events: none;
-            transform: translate(
-                var(--start-x, 0),
-                var(--start-y, 0)
-            ) scale(0);
-            animation: particle-move var(--time, 1200ms) ease-out forwards;
-        }
-
-        .particle .point {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: var(--color, var(--accent-cyan));
-            transform: translate(-50%, -50%) scale(var(--scale, 1));
-            filter: blur(2px);
-        }
-
-        @keyframes particle-move {
-            0% {
-                transform: translate(var(--start-x, 0), var(--start-y, 0)) 
-                           scale(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--end-x, 0), var(--end-y, 0)) 
-                           scale(var(--scale, 1)) 
-                           rotate(var(--rotate, 360deg));
-                opacity: 0;
-            }
-        }
-
-        .effect.filter.active .particle {
-            animation: particle-move var(--time, 1200ms) ease-out forwards;
-        }
-
-        /* Color variants for particles */
-        :root {
-            --color-1: #00d4ff;
-            --color-2: #00ff88;
-            --color-3: #0099ff;
-            --color-4: #00ffcc;
         }
 
         .status-indicator {
@@ -524,17 +418,6 @@
         <div class="particle" style="left: 90%; animation-delay: 3.5s;"></div>
     </div>
 
-    <!-- SVG Filter for Gooey Effect -->
-    <svg style="position: absolute; width: 0; height: 0;">
-        <defs>
-            <filter id="gooey">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10" result="gooey" />
-                <feComposite in="SourceGraphic" in2="gooey" operator="atop"/>
-            </filter>
-        </defs>
-    </svg>
-
     <!-- Header -->
     <header class="header">
         <div class="header-content">
@@ -543,20 +426,8 @@
                 <div class="logo-text">SHIELD</div>
             </div>
             <nav class="nav-menu">
-                <div class="gooey-nav-container" id="gooeyNav">
-                    <nav>
-                        <ul>
-                            <li class="active">
-                                <a href="index.html" class="nav-link">Threat Scanner</a>
-                            </li>
-                            <li>
-                                <a href="dashboard.html" class="nav-link">Dashboard</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <span class="effect filter"></span>
-                    <span class="effect text"></span>
-                </div>
+                <a href="index.html" class="nav-link active">Threat Scanner</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
                 <div class="nav-status">
                     <div class="status-indicator"></div>
                     <span>Defense Systems Online</span>
@@ -602,253 +473,6 @@
     </div>
 
     <script>
-        // Decrypted Text Animation
-        class DecryptedText {
-            constructor(element, options = {}) {
-                this.element = element;
-                this.originalText = element.textContent;
-                this.speed = options.speed || 50;
-                this.maxIterations = options.maxIterations || 10;
-                this.characters = options.characters || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-                this.isAnimating = false;
-                this.currentIteration = 0;
-                this.interval = null;
-                
-                this.animate();
-            }
-            
-            getRandomChar() {
-                return this.characters[Math.floor(Math.random() * this.characters.length)];
-            }
-            
-            animate() {
-                if (this.isAnimating) return;
-                this.isAnimating = true;
-                this.currentIteration = 0;
-                
-                this.interval = setInterval(() => {
-                    let displayText = '';
-                    const revealLength = Math.floor((this.currentIteration / this.maxIterations) * this.originalText.length);
-                    
-                    for (let i = 0; i < this.originalText.length; i++) {
-                        if (this.originalText[i] === ' ') {
-                            displayText += ' ';
-                        } else if (i < revealLength) {
-                            displayText += this.originalText[i];
-                        } else {
-                            displayText += this.getRandomChar();
-                        }
-                    }
-                    
-                    this.element.textContent = displayText;
-                    this.currentIteration++;
-                    
-                    if (this.currentIteration >= this.maxIterations) {
-                        clearInterval(this.interval);
-                        this.element.textContent = this.originalText;
-                        this.isAnimating = false;
-                    }
-                }, this.speed);
-            }
-        }
-
-        // Gooey Navigation Class
-        class GooeyNav {
-            constructor(container, options = {}) {
-                this.container = container;
-                this.nav = container.querySelector('nav ul');
-                this.filterEffect = container.querySelector('.effect.filter');
-                this.textEffect = container.querySelector('.effect.text');
-                
-                this.options = {
-                    animationTime: options.animationTime || 600,
-                    particleCount: options.particleCount || 15,
-                    particleDistances: options.particleDistances || [90, 10],
-                    particleR: options.particleR || 100,
-                    timeVariance: options.timeVariance || 300,
-                    colors: options.colors || [1, 2, 3, 1, 2, 3, 1, 4]
-                };
-
-                this.activeIndex = 0;
-                this.init();
-            }
-
-            noise(n = 1) {
-                return n / 2 - Math.random() * n;
-            }
-
-            getXY(distance, pointIndex, totalPoints) {
-                const angle = ((360 + this.noise(8)) / totalPoints) * pointIndex * (Math.PI / 180);
-                return [distance * Math.cos(angle), distance * Math.sin(angle)];
-            }
-
-            createParticle(i, t, d, r) {
-                const rotate = this.noise(r / 10);
-                return {
-                    start: this.getXY(d[0], this.options.particleCount - i, this.options.particleCount),
-                    end: this.getXY(d[1] + this.noise(7), this.options.particleCount - i, this.options.particleCount),
-                    time: t,
-                    scale: 1 + this.noise(0.2),
-                    color: this.options.colors[Math.floor(Math.random() * this.options.colors.length)],
-                    rotate: rotate > 0 ? (rotate + r / 20) * 10 : (rotate - r / 20) * 10
-                };
-            }
-
-            makeParticles(element) {
-                const d = this.options.particleDistances;
-                const r = this.options.particleR;
-                const bubbleTime = this.options.animationTime * 2 + this.options.timeVariance;
-                element.style.setProperty('--time', `${bubbleTime}ms`);
-
-                for (let i = 0; i < this.options.particleCount; i++) {
-                    const t = this.options.animationTime * 2 + this.noise(this.options.timeVariance * 2);
-                    const p = this.createParticle(i, t, d, r);
-                    element.classList.remove('active');
-
-                    setTimeout(() => {
-                        const particle = document.createElement('span');
-                        const point = document.createElement('span');
-                        particle.classList.add('particle');
-                        particle.style.setProperty('--start-x', `${p.start[0]}px`);
-                        particle.style.setProperty('--start-y', `${p.start[1]}px`);
-                        particle.style.setProperty('--end-x', `${p.end[0]}px`);
-                        particle.style.setProperty('--end-y', `${p.end[1]}px`);
-                        particle.style.setProperty('--time', `${p.time}ms`);
-                        particle.style.setProperty('--scale', `${p.scale}`);
-                        particle.style.setProperty('--color', `var(--color-${p.color}, #00d4ff)`);
-                        particle.style.setProperty('--rotate', `${p.rotate}deg`);
-
-                        point.classList.add('point');
-                        particle.appendChild(point);
-                        element.appendChild(particle);
-                        
-                        requestAnimationFrame(() => {
-                            element.classList.add('active');
-                        });
-                        
-                        setTimeout(() => {
-                            try {
-                                element.removeChild(particle);
-                            } catch (e) {
-                                // Particle already removed
-                            }
-                        }, t);
-                    }, 30);
-                }
-            }
-
-            updateEffectPosition(element) {
-                if (!this.container || !this.filterEffect || !this.textEffect) return;
-                const containerRect = this.container.getBoundingClientRect();
-                const pos = element.getBoundingClientRect();
-
-                const styles = {
-                    left: `${pos.x - containerRect.x}px`,
-                    top: `${pos.y - containerRect.y}px`,
-                    width: `${pos.width}px`,
-                    height: `${pos.height}px`
-                };
-                
-                Object.assign(this.filterEffect.style, styles);
-                Object.assign(this.textEffect.style, styles);
-                this.textEffect.innerText = element.innerText;
-            }
-
-            handleClick(e, index) {
-                e.preventDefault();
-                const liEl = e.currentTarget.parentElement;
-                if (this.activeIndex === index) {
-                    // Still navigate on active click
-                    window.location.href = e.currentTarget.href;
-                    return;
-                }
-
-                // Update active state
-                this.nav.querySelectorAll('li').forEach((li, i) => {
-                    li.classList.toggle('active', i === index);
-                });
-                
-                this.activeIndex = index;
-                this.updateEffectPosition(liEl);
-
-                // Clear old particles
-                if (this.filterEffect) {
-                    const particles = this.filterEffect.querySelectorAll('.particle');
-                    particles.forEach(p => this.filterEffect.removeChild(p));
-                }
-
-                // Animate text
-                if (this.textEffect) {
-                    this.textEffect.classList.remove('active');
-                    void this.textEffect.offsetWidth; // Force reflow
-                    this.textEffect.classList.add('active');
-                }
-
-                // Create particles
-                if (this.filterEffect) {
-                    this.makeParticles(this.filterEffect);
-                }
-
-                // Navigate after animation
-                setTimeout(() => {
-                    window.location.href = e.currentTarget.href;
-                }, 400);
-            }
-
-            init() {
-                const links = this.nav.querySelectorAll('a');
-                links.forEach((link, index) => {
-                    link.addEventListener('click', (e) => this.handleClick(e, index));
-                });
-
-                // Set initial position
-                const activeLi = this.nav.querySelectorAll('li')[this.activeIndex];
-                if (activeLi) {
-                    this.updateEffectPosition(activeLi);
-                    this.textEffect.classList.add('active');
-                }
-
-                // Handle resize
-                const resizeObserver = new ResizeObserver(() => {
-                    const currentActiveLi = this.nav.querySelectorAll('li')[this.activeIndex];
-                    if (currentActiveLi) {
-                        this.updateEffectPosition(currentActiveLi);
-                    }
-                });
-
-                resizeObserver.observe(this.container);
-            }
-        }
-        
-        // Initialize decrypted text animations and gooey nav on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            // Initialize Gooey Navigation
-            const gooeyNavContainer = document.getElementById('gooeyNav');
-            if (gooeyNavContainer) {
-                new GooeyNav(gooeyNavContainer, {
-                    animationTime: 600,
-                    particleCount: 15,
-                    particleDistances: [90, 10],
-                    particleR: 100,
-                    timeVariance: 300
-                });
-            }
-
-            // Animate hero title
-            const heroTitle = document.querySelector('.hero-title');
-            if (heroTitle) {
-                new DecryptedText(heroTitle, { speed: 30, maxIterations: 20 });
-            }
-            
-            // Animate panel title
-            const panelTitle = document.querySelector('.panel-title');
-            if (panelTitle) {
-                setTimeout(() => {
-                    new DecryptedText(panelTitle, { speed: 40, maxIterations: 15 });
-                }, 500);
-            }
-        });
-        
         // Backend API configuration
         const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
         
@@ -896,40 +520,17 @@
         
         // Save analysis data and redirect to dashboard
         function redirectToDashboard(response) {
-            // Check if input is malicious (any threat detected)
-            if (response.result && response.result.is_malicious === true) {
-                // Save honeypot session data
-                const honeypotData = {
-                    original_input: document.getElementById('textInput').value,
-                    threat_analysis: response,
-                    timestamp: new Date().toISOString(),
-                    session_id: 'HNY-' + Math.random().toString(36).substr(2, 9).toUpperCase()
-                };
-                localStorage.setItem('honeypotSession', JSON.stringify(honeypotData));
-                
-                // Open honeypot in NEW TAB (silently, no warning)
-                window.open('honeypot.html', '_blank');
-                
-                // Still show dashboard in CURRENT TAB so you can monitor
-                localStorage.setItem('latestThreatAnalysis', JSON.stringify(response));
-                localStorage.setItem('threatAnalysisTimestamp', new Date().toISOString());
-                
-                hideLoading();
-                
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 1000);
-            } else {
-                // Normal redirect to dashboard for safe inputs
-                localStorage.setItem('latestThreatAnalysis', JSON.stringify(response));
-                localStorage.setItem('threatAnalysisTimestamp', new Date().toISOString());
-                
-                hideLoading();
-                
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 1000);
-            }
+            // Save to localStorage for dashboard
+            localStorage.setItem('latestThreatAnalysis', JSON.stringify(response));
+            localStorage.setItem('threatAnalysisTimestamp', new Date().toISOString());
+            
+            // Hide loading
+            hideLoading();
+            
+            // Redirect to dashboard after a brief delay
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
         }
         
         // Show error with redirect option
