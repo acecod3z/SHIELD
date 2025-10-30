@@ -274,3 +274,8 @@
 2025-10-30 10:11:11 - app.services.analysis - INFO - ai_analysis_stub:131 - AI Analysis Stub - Input: InputType.TEXT, Malicious: False, Threats: 0
 2025-10-30 10:11:11 - app.api.v1.routes - INFO - analyze_input:134 - Analysis completed - Job: analysis_1761779470_bd562e27, Malicious: False, Threats: 0
 2025-10-30 10:11:30 - watchfiles.main - INFO - _log_changes:308 - 2 changes detected
+2025-10-30 10:11:31 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 10:25:48 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 10:26:05 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 10:26:11 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
+2025-10-30 10:26:13 - watchfiles.main - INFO - _log_changes:308 - 1 change detected
