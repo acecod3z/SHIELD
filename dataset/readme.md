@@ -178,48 +178,9 @@ admin' or '1'='1'#
 - Web-Based Port Scanning (SSRF)
 - JavaScript-Based Client-Side Scanning
 
----
 
-## 🎯 Use Cases
 
-### For Developers:
-- Training machine learning models for attack detection
-- Testing WAF (Web Application Firewall) rules
-- Building intrusion detection systems
-- Creating security awareness training materials
 
-### For Security Researchers:
-- Analyzing attack patterns and trends
-- Developing new detection algorithms
-- Benchmarking security tools
-- Understanding attack evolution
-
-### For Educational Purposes:
-- Teaching cybersecurity concepts
-- Hands-on penetration testing labs
-- Security certification preparation
-- Red team/Blue team exercises
-
----
-
-## 🔒 Ethical Usage Guidelines
-
-⚠️ **IMPORTANT:** These datasets are provided for **educational and defensive security purposes only**.
-
-**Permitted Uses:**
-- Academic research and study
-- Security tool development and testing
-- Defensive security training
-- Penetration testing on authorized systems
-- Building detection/prevention systems
-
-**Prohibited Uses:**
-- Unauthorized access to systems
-- Malicious attacks on real targets
-- Illegal activities
-- Bypassing security controls without permission
-
----
 
 ## 📁 File Structure
 
@@ -252,11 +213,7 @@ dataset/
 
 ---
 
-## ⚖️ Legal Disclaimer
 
-This dataset is provided "AS IS" for educational purposes. Users are responsible for ensuring their use complies with all applicable laws and regulations. The dataset maintainers are not responsible for any misuse or illegal activities performed using this data.
-
----
 
 ## 📝 Version Information
 
@@ -264,12 +221,5 @@ This dataset is provided "AS IS" for educational purposes. Users are responsible
 - **Attack_Dataset Version:** 1.0 (14,181 entries)
 - **Modified_SQL_Dataset Version:** 1.0 (30,920 entries)
 
----
-
-## 🤝 Contribution
-
-If you have suggestions for improving this dataset or documentation, please submit your feedback to the project maintainers.
 
 ---
-
-**Remember: With great power comes great responsibility. Use these resources ethically and legally.**
