@@ -473,6 +473,73 @@
     </div>
 
     <script>
+        // Decrypted Text Animation
+        class DecryptedText {
+            constructor(element, options = {}) {
+                this.element = element;
+                this.originalText = element.textContent;
+                this.speed = options.speed || 50;
+                this.maxIterations = options.maxIterations || 10;
+                this.characters = options.characters || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+                this.isAnimating = false;
+                this.currentIteration = 0;
+                this.interval = null;
+                
+                this.animate();
+            }
+            
+            getRandomChar() {
+                return this.characters[Math.floor(Math.random() * this.characters.length)];
+            }
+            
+            animate() {
+                if (this.isAnimating) return;
+                this.isAnimating = true;
+                this.currentIteration = 0;
+                
+                this.interval = setInterval(() => {
+                    let displayText = '';
+                    const revealLength = Math.floor((this.currentIteration / this.maxIterations) * this.originalText.length);
+                    
+                    for (let i = 0; i < this.originalText.length; i++) {
+                        if (this.originalText[i] === ' ') {
+                            displayText += ' ';
+                        } else if (i < revealLength) {
+                            displayText += this.originalText[i];
+                        } else {
+                            displayText += this.getRandomChar();
+                        }
+                    }
+                    
+                    this.element.textContent = displayText;
+                    this.currentIteration++;
+                    
+                    if (this.currentIteration >= this.maxIterations) {
+                        clearInterval(this.interval);
+                        this.element.textContent = this.originalText;
+                        this.isAnimating = false;
+                    }
+                }, this.speed);
+            }
+        }
+        
+        // Initialize decrypted text animations on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            // Animate hero title
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                new DecryptedText(heroTitle, { speed: 30, maxIterations: 20 });
+            }
+            
+            // Animate panel title
+            const panelTitle = document.querySelector('.panel-title');
+            if (panelTitle) {
+                setTimeout(() => {
+                    new DecryptedText(panelTitle, { speed: 40, maxIterations: 15 });
+                }, 500);
+            }
+        });
+        
         // Backend API configuration
         const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
         

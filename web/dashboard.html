@@ -487,30 +487,6 @@
             <p class="dashboard-subtitle">Real-time Security Intelligence & Monitoring</p>
         </div>
 
-        <!-- Dashboard Stats -->
-        <div class="dashboard-grid">
-            <div class="dashboard-card">
-                <h3 class="card-title">🛡️ Total Scans</h3>
-                <div class="stat-value">2,847</div>
-                <div class="stat-label">Queries Analyzed</div>
-            </div>
-            <div class="dashboard-card">
-                <h3 class="card-title">⚠️ Threats Detected</h3>
-                <div class="stat-value">143</div>
-                <div class="stat-label">Malicious Attempts</div>
-            </div>
-            <div class="dashboard-card">
-                <h3 class="card-title">📊 Success Rate</h3>
-                <div class="stat-value">99.7%</div>
-                <div class="stat-label">Detection Accuracy</div>
-            </div>
-            <div class="dashboard-card">
-                <h3 class="card-title">🔒 Security Level</h3>
-                <div class="stat-value">ALPHA</div>
-                <div class="stat-label">Defense Status</div>
-            </div>
-        </div>
-
         <!-- Latest Threat Analysis Report -->
         <div class="threat-report">
             <div class="report-header">
@@ -533,16 +509,16 @@
                     <span>136.99 ms</span>
                 </div>
                 <div class="metadata-item">
-                    <span>AI Model Version:</span>
-                    <span>stub-v1.0.0</span>
-                </div>
-                <div class="metadata-item">
                     <span>Analysis Timestamp:</span>
                     <span>10/30/2025, 1:07:46 PM</span>
                 </div>
-                <div class="metadata-item">
-                    <span>Security Level:</span>
-                    <span>Military Grade Encryption</span>
+            </div>
+
+            <!-- Detected Threats Details (only shown if malicious) -->
+            <div class="metadata-section" id="threatsDetails" style="display: none;">
+                <h4 class="metadata-title">⚠️ Detected Threats</h4>
+                <div id="threatsContainer">
+                    <!-- Threats will be populated dynamically -->
                 </div>
             </div>
         </div>
@@ -723,6 +699,71 @@
         initAnimatedList('recentActivity');
         initAnimatedList('threatCategories');
 
+        // Decrypted Text Animation
+        class DecryptedText {
+            constructor(element, options = {}) {
+                this.element = element;
+                this.originalText = element.textContent;
+                this.speed = options.speed || 50;
+                this.maxIterations = options.maxIterations || 10;
+                this.characters = options.characters || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+                this.isAnimating = false;
+                this.currentIteration = 0;
+                this.interval = null;
+                
+                this.animate();
+            }
+            
+            getRandomChar() {
+                return this.characters[Math.floor(Math.random() * this.characters.length)];
+            }
+            
+            animate() {
+                if (this.isAnimating) return;
+                this.isAnimating = true;
+                this.currentIteration = 0;
+                
+                this.interval = setInterval(() => {
+                    let displayText = '';
+                    const revealLength = Math.floor((this.currentIteration / this.maxIterations) * this.originalText.length);
+                    
+                    for (let i = 0; i < this.originalText.length; i++) {
+                        if (this.originalText[i] === ' ') {
+                            displayText += ' ';
+                        } else if (i < revealLength) {
+                            displayText += this.originalText[i];
+                        } else {
+                            displayText += this.getRandomChar();
+                        }
+                    }
+                    
+                    this.element.textContent = displayText;
+                    this.currentIteration++;
+                    
+                    if (this.currentIteration >= this.maxIterations) {
+                        clearInterval(this.interval);
+                        this.element.textContent = this.originalText;
+                        this.isAnimating = false;
+                    }
+                }, this.speed);
+            }
+        }
+        
+        // Animate dashboard headings on page load
+        setTimeout(() => {
+            const dashboardTitle = document.querySelector('.dashboard-title');
+            if (dashboardTitle) {
+                new DecryptedText(dashboardTitle, { speed: 30, maxIterations: 20 });
+            }
+            
+            const reportTitle = document.querySelector('.report-title');
+            if (reportTitle) {
+                setTimeout(() => {
+                    new DecryptedText(reportTitle, { speed: 40, maxIterations: 15 });
+                }, 300);
+            }
+        }, 100);
+
         // Auto-refresh dashboard every 30 seconds
         setInterval(() => {
             console.log('Dashboard refreshing...');
@@ -763,6 +804,56 @@
                     <div class="confidence">Confidence Level: ${(result.confidence_score * 100).toFixed(1)}%</div>
                     <div class="threat-level">Classification: ${result.threat_level.toUpperCase()}</div>
                 `;
+
+                // Show/hide threat details section
+                const threatsDetails = document.getElementById('threatsDetails');
+                const threatsContainer = document.getElementById('threatsContainer');
+                
+                if (result.is_malicious && result.detected_threats && result.detected_threats.length > 0) {
+                    threatsDetails.style.display = 'block';
+                    threatsContainer.innerHTML = '';
+                    
+                    result.detected_threats.forEach((threat, index) => {
+                        const threatCard = document.createElement('div');
+                        threatCard.style.cssText = `
+                            background: rgba(255, 0, 0, 0.05);
+                            border: 1px solid rgba(255, 0, 0, 0.3);
+                            border-radius: 8px;
+                            padding: 1rem;
+                            margin-bottom: 1rem;
+                        `;
+                        
+                        threatCard.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <div style="font-weight: bold; color: #ff0066; font-size: 1.1rem;">
+                                    ${threat.attack_type?.replace(/_/g, ' ').toUpperCase() || 'UNKNOWN THREAT'}
+                                </div>
+                                <div style="background: rgba(255, 0, 0, 0.2); padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.9rem;">
+                                    ${threat.severity?.toUpperCase() || 'MEDIUM'}
+                                </div>
+                            </div>
+                            <div style="color: rgba(255, 255, 255, 0.8); margin-bottom: 0.5rem;">
+                                ${threat.description || 'Potential security threat detected'}
+                            </div>
+                            <div style="display: flex; gap: 2rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);">
+                                <div>
+                                    <span style="color: rgba(255, 255, 255, 0.5);">Confidence:</span> 
+                                    <span style="color: #ff6600;">${(threat.confidence * 100).toFixed(1)}%</span>
+                                </div>
+                                ${threat.mitigation ? `
+                                <div>
+                                    <span style="color: rgba(255, 255, 255, 0.5);">Mitigation:</span> 
+                                    <span style="color: #00ff88;">${threat.mitigation}</span>
+                                </div>
+                                ` : ''}
+                            </div>
+                        `;
+                        
+                        threatsContainer.appendChild(threatCard);
+                    });
+                } else {
+                    threatsDetails.style.display = 'none';
+                }
             }
 
             // Update metadata

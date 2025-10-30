@@ -172,6 +172,64 @@
     </div>
 
     <script>
+        // Decrypted Text Animation
+        class DecryptedText {
+            constructor(element, options = {}) {
+                this.element = element;
+                this.originalText = element.textContent;
+                this.speed = options.speed || 50;
+                this.maxIterations = options.maxIterations || 10;
+                this.characters = options.characters || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+                this.isAnimating = false;
+                this.currentIteration = 0;
+                this.interval = null;
+                
+                this.animate();
+            }
+            
+            getRandomChar() {
+                return this.characters[Math.floor(Math.random() * this.characters.length)];
+            }
+            
+            animate() {
+                if (this.isAnimating) return;
+                this.isAnimating = true;
+                this.currentIteration = 0;
+                
+                this.interval = setInterval(() => {
+                    let displayText = '';
+                    const revealLength = Math.floor((this.currentIteration / this.maxIterations) * this.originalText.length);
+                    
+                    for (let i = 0; i < this.originalText.length; i++) {
+                        if (this.originalText[i] === ' ') {
+                            displayText += ' ';
+                        } else if (i < revealLength) {
+                            displayText += this.originalText[i];
+                        } else {
+                            displayText += this.getRandomChar();
+                        }
+                    }
+                    
+                    this.element.textContent = displayText;
+                    this.currentIteration++;
+                    
+                    if (this.currentIteration >= this.maxIterations) {
+                        clearInterval(this.interval);
+                        this.element.textContent = this.originalText;
+                        this.isAnimating = false;
+                    }
+                }, this.speed);
+            }
+        }
+        
+        // Animate console header on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const consoleHeader = document.querySelector('.console-header h1');
+            if (consoleHeader) {
+                new DecryptedText(consoleHeader, { speed: 25, maxIterations: 25 });
+            }
+        });
+    
         const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
         let sessionId = '';
         let startTime = Date.now();
