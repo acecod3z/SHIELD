@@ -137,6 +137,33 @@
             font-size: 0.9rem;
         }
 
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-link:hover {
+            background: var(--glass-bg);
+            color: var(--accent-cyan);
+        }
+
+        .nav-link.active {
+            background: var(--accent-cyan);
+            color: var(--primary-blue);
+        }
+
         .status-indicator {
             width: 8px;
             height: 8px;
@@ -300,163 +327,7 @@
             transform: translateY(-2px);
         }
 
-        /* Results section */
-        .result-section {
-            margin-top: 2rem;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-            display: none;
-            position: relative;
-            overflow: hidden;
-        }
 
-        .result-section.show {
-            display: block;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .result-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .result-title {
-            font-size: 1.5rem;
-            color: var(--accent-cyan);
-            margin-bottom: 0.5rem;
-        }
-
-        .job-info {
-            font-size: 0.9rem;
-            color: rgba(224, 225, 221, 0.7);
-        }
-
-        /* Threat status */
-        .threat-status {
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.2rem;
-            position: relative;
-        }
-
-        .threat-status.benign {
-            background: linear-gradient(45deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.1));
-            border: 2px solid var(--accent-green);
-            color: var(--accent-green);
-        }
-
-        .threat-status.malicious {
-            background: linear-gradient(45deg, rgba(255, 107, 53, 0.3), rgba(255, 107, 53, 0.1));
-            border: 2px solid var(--accent-orange);
-            color: var(--accent-orange);
-            animation: warningPulse 2s infinite;
-        }
-
-        @keyframes warningPulse {
-            0%, 100% { box-shadow: 0 0 10px rgba(255, 107, 53, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.6); }
-        }
-
-        .confidence, .threat-level {
-            font-size: 1rem;
-            margin-top: 0.5rem;
-            opacity: 0.8;
-        }
-
-        /* Threats section */
-        .threats-section {
-            margin: 2rem 0;
-        }
-
-        .threats-title {
-            color: var(--accent-cyan);
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .threat-item {
-            margin: 1rem 0;
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-orange);
-            background: rgba(255, 107, 53, 0.1);
-            backdrop-filter: blur(5px);
-        }
-
-        .threat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.8rem;
-        }
-
-        .threat-type {
-            font-weight: 600;
-            color: var(--accent-orange);
-            font-family: 'Orbitron', monospace;
-        }
-
-        .threat-confidence {
-            background: rgba(255, 107, 53, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-
-        .threat-description {
-            color: var(--text-light);
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-
-        .mitigation {
-            padding: 1rem;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-cyan);
-            font-style: italic;
-            color: var(--accent-cyan);
-        }
-
-        /* Metadata section */
-        .metadata-section {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .metadata-title {
-            color: var(--accent-cyan);
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 1rem;
-        }
-
-        .metadata-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-        }
-
-        .metadata-item:last-child {
-            border-bottom: none;
-        }
 
         /* Loading animation */
         .loading-container {
@@ -485,15 +356,7 @@
             font-weight: 500;
         }
 
-        /* Error styles */
-        .error {
-            background: linear-gradient(45deg, rgba(255, 107, 53, 0.3), rgba(255, 107, 53, 0.1));
-            border: 2px solid var(--accent-orange);
-            color: var(--accent-orange);
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-        }
+
 
         /* Responsive design */
         @media (max-width: 768px) {
@@ -519,6 +382,19 @@
             
             .logo-text {
                 font-size: 1.4rem;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .nav-link {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-status {
+                font-size: 0.8rem;
             }
         }
 
@@ -553,10 +429,14 @@
                 <div class="logo-icon">S</div>
                 <div class="logo-text">SHIELD</div>
             </div>
-            <div class="nav-status">
-                <div class="status-indicator"></div>
-                <span>Defense Systems Online</span>
-            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link active">Threat Scanner</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <div class="nav-status">
+                    <div class="status-indicator"></div>
+                    <span>Defense Systems Online</span>
+                </div>
+            </nav>
         </div>
     </header>
 
@@ -593,128 +473,116 @@
             </form>
         </div>
 
-        <!-- Result Section -->
-        <div class="result-section" id="resultSection">
-            <div id="resultContent"></div>
-        </div>
+
     </div>
 
     <script>
         // Backend API configuration
         const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
         
-        // Show loading state
+        // Show loading state with redirect message
         function showLoading() {
-            const resultContent = document.getElementById('resultContent');
-            resultContent.innerHTML = `
-                <div class="loading-container">
-                    <div class="loading-spinner"></div>
-                    <div class="loading-text">Analyzing threat patterns...</div>
-                    <div style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.7;">AI Defense Systems Processing</div>
+            // Create a loading overlay
+            const loadingOverlay = document.createElement('div');
+            loadingOverlay.id = 'loadingOverlay';
+            loadingOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(13, 27, 42, 0.95);
+                backdrop-filter: blur(10px);
+                z-index: 1000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #00d4ff;
+                font-family: 'Orbitron', monospace;
+            `;
+            
+            loadingOverlay.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="width: 60px; height: 60px; border: 3px solid rgba(0, 212, 255, 0.3); border-top: 3px solid #00d4ff; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 2rem;"></div>
+                    <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: #00d4ff;">Analyzing Input</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Processing...</p>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Redirecting to dashboard...</p>
                 </div>
             `;
-            document.getElementById('resultSection').classList.add('show');
+            
+            document.body.appendChild(loadingOverlay);
         }
         
-        // Show analysis results
-        function showResults(response) {
-            const resultContent = document.getElementById('resultContent');
-            const result = response.result;
-            
-            if (!result) {
-                resultContent.innerHTML = '<div class="result-item error"><strong>Error:</strong> No analysis result received</div>';
-                return;
+        // Remove loading overlay
+        function hideLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) {
+                overlay.remove();
             }
-            
-            let resultHTML = `
-                <div class="result-header">
-                    <h3 class="result-title">Threat Analysis Report</h3>
-                    <div class="job-info">Analysis ID: ${response.job_id} | System: SHIELD-AI</div>
-                </div>
-            `;
-            
-            // Threat status
-            const statusClass = result.is_malicious ? 'malicious' : 'benign';
-            const statusText = result.is_malicious ? '🚨 THREAT DETECTED' : '✅ SECURE';
-            const statusIcon = result.is_malicious ? '⚠️' : '🛡️';
-            
-            resultHTML += `
-                <div class="threat-status ${statusClass}">
-                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">${statusIcon} ${statusText}</div>
-                    <div class="confidence">Confidence Level: ${(result.confidence_score * 100).toFixed(1)}%</div>
-                    <div class="threat-level">Classification: ${result.threat_level.toUpperCase()}</div>
-                </div>
-            `;
-            
-            // Detected threats
-            if (result.detected_threats && result.detected_threats.length > 0) {
-                resultHTML += '<div class="threats-section"><h4 class="threats-title">🎯 Detected Attack Vectors:</h4>';
-                
-                result.detected_threats.forEach(threat => {
-                    resultHTML += `
-                        <div class="threat-item">
-                            <div class="threat-header">
-                                <div class="threat-type">${threat.attack_type.replace(/_/g, ' ').toUpperCase()}</div>
-                                <div class="threat-confidence">${(threat.confidence * 100).toFixed(1)}%</div>
-                            </div>
-                            <div class="threat-description">🔍 ${threat.description}</div>
-                            ${threat.mitigation ? `<div class="mitigation">🛠️ <strong>Recommended Action:</strong> ${threat.mitigation}</div>` : ''}
-                        </div>
-                    `;
-                });
-                
-                resultHTML += '</div>';
-            }
-            
-            // Analysis metadata
-            if (result.analysis_metadata) {
-                resultHTML += `
-                    <div class="metadata-section">
-                        <h4 class="metadata-title">📊 System Diagnostics</h4>
-                        <div class="metadata-item">
-                            <span>Processing Time:</span>
-                            <span>${result.processing_time_ms?.toFixed(2) || 'N/A'} ms</span>
-                        </div>
-                        <div class="metadata-item">
-                            <span>AI Model Version:</span>
-                            <span>${result.ai_model_version || 'SHIELD-Defense-v1.0'}</span>
-                        </div>
-                        <div class="metadata-item">
-                            <span>Analysis Timestamp:</span>
-                            <span>${new Date(response.timestamp).toLocaleString()}</span>
-                        </div>
-                        <div class="metadata-item">
-                            <span>Security Level:</span>
-                            <span>Military Grade Encryption</span>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            // Honeypot notification
-            if (response.honeypot_redirect) {
-                resultHTML += `
-                    <div class="honeypot-notice">
-                        <h4>🍯 Honeypot Engaged</h4>
-                        <p>Malicious activity detected. Redirect to monitoring environment initiated.</p>
-                        <p><strong>Session ID:</strong> ${response.honeypot_redirect.session_id}</p>
-                    </div>
-                `;
-            }
-            
-            resultContent.innerHTML = resultHTML;
         }
         
-        // Show error
+        // Save analysis data and redirect to dashboard
+        function redirectToDashboard(response) {
+            // Save to localStorage for dashboard
+            localStorage.setItem('latestThreatAnalysis', JSON.stringify(response));
+            localStorage.setItem('threatAnalysisTimestamp', new Date().toISOString());
+            
+            // Hide loading
+            hideLoading();
+            
+            // Redirect to dashboard after a brief delay
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        }
+        
+        // Show error with redirect option
         function showError(message) {
-            const resultContent = document.getElementById('resultContent');
-            resultContent.innerHTML = `
-                <div class="error">
-                    <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">⚠️ System Alert</div>
-                    <strong>Error:</strong> ${message}
+            hideLoading();
+            
+            // Create error overlay
+            const errorOverlay = document.createElement('div');
+            errorOverlay.id = 'errorOverlay';
+            errorOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(13, 27, 42, 0.95);
+                backdrop-filter: blur(10px);
+                z-index: 1000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #ff6b35;
+                font-family: 'Rajdhani', sans-serif;
+            `;
+            
+            errorOverlay.innerHTML = `
+                <div style="text-align: center; max-width: 500px; padding: 2rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+                    <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: #ff6b35;">Error</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.5;">${message}</p>
+                    <button onclick="document.getElementById('errorOverlay').remove()" style="
+                        background: linear-gradient(45deg, #00d4ff, #00ff88);
+                        color: #0d1b2a;
+                        border: none;
+                        padding: 1rem 2rem;
+                        border-radius: 10px;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        font-family: 'Rajdhani', sans-serif;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    ">OK</button>
                 </div>
             `;
-            document.getElementById('resultSection').classList.add('show');
+            
+            document.body.appendChild(errorOverlay);
         }
         
         // Handle form submission
@@ -735,9 +603,7 @@
                 // Create analysis request for text input
                 const analysisRequest = {
                     input_type: 'text',
-                    content: textInput,
-                    ip_address: '127.0.0.1', // Demo IP
-                    user_agent: navigator.userAgent
+                    content: textInput
                 };
                 
                 // Send analysis request
@@ -755,12 +621,17 @@
                 }
                 
                 const result = await response.json();
-                showResults(result);
+                
+                // Clear the form
+                document.getElementById('inputForm').reset();
+                
+                // Save and redirect to dashboard
+                redirectToDashboard(result);
                 
             } catch (error) {
                 console.error('Analysis failed:', error);
                 if (error.message.includes('Failed to fetch')) {
-                    showError('Cannot establish connection to SHIELD Defense Network. Please ensure the backend server is operational.');
+                    showError('Cannot connect to backend server. Please ensure the server is running.');
                 } else {
                     showError(error.message);
                 }
@@ -770,9 +641,17 @@
         // Clear form function
         function clearForm() {
             document.getElementById('inputForm').reset();
-            document.getElementById('resultSection').classList.remove('show');
-            document.getElementById('resultContent').innerHTML = '';
         }
+        
+        // Add spin animation for loading
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
