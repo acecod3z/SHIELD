@@ -643,10 +643,6 @@
                     <span>Analysis Timestamp:</span>
                     <span>10/30/2025, 1:07:46 PM</span>
                 </div>
-                <div class="metadata-item">
-                    <span>User IP Address:</span>
-                    <span id="userIp">Detecting...</span>
-                </div>
             </div>
 
             <!-- Detected Threats Details (only shown if malicious) -->
@@ -1075,14 +1071,62 @@
 
         // Load latest analysis from localStorage
         function loadLatestAnalysis() {
+            const showAnalysis = localStorage.getItem('showAnalysis');
             const latestAnalysis = localStorage.getItem('latestThreatAnalysis');
-            if (latestAnalysis) {
+            
+            // Only show analysis if flag is set (came from form submission)
+            if (showAnalysis === 'true' && latestAnalysis) {
                 try {
                     const analysisData = JSON.parse(latestAnalysis);
                     updateThreatReport(analysisData);
+                    
+                    // Clear the flag so refresh shows default state
+                    localStorage.removeItem('showAnalysis');
                 } catch (e) {
                     console.error('Error parsing analysis data:', e);
+                    clearOldDataAndShowDefault();
                 }
+            } else {
+                // Clear old data and show default state
+                clearOldDataAndShowDefault();
+            }
+        }
+
+        // Clear old data and show default state
+        function clearOldDataAndShowDefault() {
+            localStorage.removeItem('latestThreatAnalysis');
+            localStorage.removeItem('threatAnalysisTimestamp');
+            localStorage.removeItem('showAnalysis');
+            showDefaultState();
+        }
+
+        // Show default "AWAITING INPUT" state
+        function showDefaultState() {
+            const reportId = document.querySelector('.report-id');
+            const threatStatus = document.querySelector('.threat-status');
+            const metadataItems = document.querySelectorAll('.metadata-item span:last-child');
+            const threatsDetails = document.getElementById('threatsDetails');
+
+            if (reportId) {
+                reportId.textContent = 'System Ready | System: SHIELD-AI';
+            }
+
+            if (threatStatus) {
+                threatStatus.className = 'threat-status benign';
+                threatStatus.innerHTML = `
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🛡️ ✅ SECURE</div>
+                    <div class="confidence">No threats detected</div>
+                    <div class="threat-level">Status: SAFE</div>
+                `;
+            }
+
+            if (metadataItems.length >= 2) {
+                metadataItems[0].textContent = '0.00 ms';
+                metadataItems[1].textContent = new Date().toLocaleString();
+            }
+
+            if (threatsDetails) {
+                threatsDetails.style.display = 'none';
             }
         }
 
@@ -1198,26 +1242,6 @@
             }
         }
 
-        // Function to get and display user IP
-        async function displayUserIP() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                
-                // Update the IP display element
-                const ipElement = document.getElementById('userIp');
-                if (ipElement) {
-                    ipElement.textContent = data.ip;
-                }
-            } catch (error) {
-                console.error('Error getting IP:', error);
-                const ipElement = document.getElementById('userIp');
-                if (ipElement) {
-                    ipElement.textContent = 'Unable to detect';
-                }
-            }
-        }
-
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Gooey Navigation
@@ -1236,9 +1260,6 @@
 
             // Load latest analysis on page load
             loadLatestAnalysis();
-
-            // Get and display user IP address
-            displayUserIP();
 
             // Animate counters on load
             const statValues = document.querySelectorAll('.stat-value');

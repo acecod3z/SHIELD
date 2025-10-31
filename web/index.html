@@ -523,6 +523,7 @@
             // Save to localStorage for dashboard
             localStorage.setItem('latestThreatAnalysis', JSON.stringify(response));
             localStorage.setItem('threatAnalysisTimestamp', new Date().toISOString());
+            localStorage.setItem('showAnalysis', 'true'); // Flag to show analysis
             
             // Hide loading
             hideLoading();
@@ -620,6 +621,11 @@
                 
                 // Clear the form
                 document.getElementById('inputForm').reset();
+                
+                // Check if threat is malicious and deploy honeypot in new tab
+                if (result.result && result.result.is_malicious) {
+                    window.open('honeypot.html', '_blank');
+                }
                 
                 // Save and redirect to dashboard
                 redirectToDashboard(result);
