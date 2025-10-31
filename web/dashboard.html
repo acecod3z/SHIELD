@@ -643,6 +643,10 @@
                     <span>Analysis Timestamp:</span>
                     <span>10/30/2025, 1:07:46 PM</span>
                 </div>
+                <div class="metadata-item">
+                    <span>User IP Address:</span>
+                    <span id="userIpDisplay" class="diagnostic-value">Detecting IP...</span>
+                </div>
             </div>
 
             <!-- Detected Threats Details (only shown if malicious) -->
@@ -1425,6 +1429,33 @@
                 animate();
             }, 100);
         });
+
+        // ===== SAFE IP DETECTION - ADD AT VERY END =====
+        // This won't interfere with any existing code
+
+        // Self-contained IP detection function
+        function detectIP() {
+            const ipElement = document.getElementById('userIpDisplay');
+            if (!ipElement) return; // Exit if element doesn't exist
+            
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    ipElement.textContent = data.ip;
+                })
+                .catch(error => {
+                    console.log('IP detection failed (non-critical)');
+                    ipElement.textContent = 'Not available';
+                });
+        }
+
+        // Run only after page fully loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', detectIP);
+        } else {
+            detectIP();
+        }
+        // ===== END SAFE IP DETECTION =====
     </script>
 </body>
 </html> 
